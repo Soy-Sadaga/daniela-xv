@@ -1784,10 +1784,30 @@ body {
   #xv-years { font-size: clamp(0.8rem, 2vw, 1.5rem); }
   #name-tagline { font-size: clamp(0.75rem, 2vw, 1rem); }
 
-  /* Photo frames */
-  .photo-frame { transform: scale(0.75) !important; }
+  /* Photo frames — reposicionados para que NO se superpongan en móvil */
+  #scene-garden #pf1 {
+    left: 5% !important;
+    top: 7% !important;
+    right: auto !important;
+    transform: scale(0.6) !important;
+    transform-origin: top left;
+  }
+  #scene-garden #pf2 {
+    right: 5% !important;
+    left: auto !important;
+    top: 7% !important;
+    transform: scale(0.6) !important;
+    transform-origin: top right;
+  }
+  #scene-garden #pf3 {
+    left: 50% !important;
+    top: 36% !important;
+    transform: translateX(-50%) scale(0.6) !important;
+    transform-origin: top center;
+  }
 
-  /* Garden quote */
+  /* Garden quote — baja un poco para no chocar con el marco central */
+  #garden-quote { bottom: 7%; width: min(92vw, 520px); }
   #garden-quote blockquote { font-size: clamp(0.9rem, 2vw, 1.2rem); }
 
   /* Event container */
