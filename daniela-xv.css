@@ -1733,11 +1733,102 @@ body {
 }
 #music-btn:hover::after { opacity: 1; }
 
-/* Responsive */
+/* ══════════════════════════════
+   RESPONSIVE — MÓVILES Y TABLETS
+══════════════════════════════ */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  #entry-name { font-size: clamp(4rem, 12vw, 8rem); }
+  #entry-content { padding: 1.2rem 1.5rem; max-width: min(90vw, 600px); }
+
+  #xv-name { font-size: clamp(2.8rem, 10vw, 6rem); }
+  .photo-frame { transform: scale(0.85) !important; }
+}
+
+/* Móviles medianos (480px - 768px) */
 @media (max-width: 768px) {
-  #xv-name { font-size: clamp(3rem,14vw,6rem); }
-  .photo-frame { transform: scale(0.7) !important; }
-  #rsvp-box { padding: 2rem 1.5rem; }
+  /* Entry Portal adjustments */
+  #entry-name {
+    font-size: clamp(3.5rem, 13vw, 6rem);
+    letter-spacing: 0.04em;
+  }
+  #entry-content {
+    padding: 1rem 1.2rem;
+    gap: 0.4rem;
+    max-width: min(92vw, 500px);
+  }
+
+  /* Eyebrow */
+  #entry-eyebrow { font-size: clamp(0.4rem, 2vw, 0.5rem); }
+
+  /* XV text */
+  #entry-xv { font-size: clamp(0.5rem, 1.8vw, 0.75rem); }
+
+  /* Subtitle */
+  #entry-subtitle {
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    line-height: 1.8;
+  }
+
+  /* Button */
+  #entry-btn { font-size: clamp(0.48rem, 1.6vw, 0.6rem); }
+  .ep-btn-label { padding: 0.75rem 2rem; }
+
+  /* Year */
+  #entry-year { font-size: clamp(0.65rem, 1.4vw, 0.8rem); }
+
+  /* Scene 2 - Name Reveal */
+  #xv-name { font-size: clamp(2.5rem, 12vw, 5rem); }
+  #crown-glyph { font-size: clamp(1.5rem, 6vw, 2.5rem); }
+  #xv-years { font-size: clamp(0.8rem, 2vw, 1.5rem); }
+  #name-tagline { font-size: clamp(0.75rem, 2vw, 1rem); }
+
+  /* Photo frames */
+  .photo-frame { transform: scale(0.75) !important; }
+
+  /* Garden quote */
+  #garden-quote blockquote { font-size: clamp(0.9rem, 2vw, 1.2rem); }
+
+  /* Event container */
+  #event-container { width: min(95vw, 750px); }
+  .big-date { font-size: clamp(1.4rem, 5vw, 3.5rem); }
+  .gold-year { font-size: clamp(0.9rem, 2.5vw, 1.5rem); }
+
+  /* Countdown */
+  #countdown { padding: 1.5rem 1.5rem 1.6rem; }
+  .cd-num { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .cd-sep { font-size: clamp(1rem, 2.2vw, 2rem); }
+
+  /* Dress code */
+  #dress-inner { flex-direction: column; gap: 1.5rem; height: auto; }
+  #dress-copy { max-width: 100%; padding: 0 1.5rem; }
+  .dress-title-line1 { font-size: clamp(2.5rem, 8vw, 4rem); }
+  .dress-title-line2 { font-size: clamp(2rem, 7vw, 3.5rem); }
+  #dress-message { font-size: clamp(0.95rem, 2vw, 1.1rem); }
+  #dress-couple { width: 65%; height: 35vh; margin: 0 auto; }
+
+  /* Location scene */
+  #scene-location { justify-content: center; padding: 0; }
+  #location-content {
+    max-width: 92vw;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .loc-l1 { font-size: clamp(2rem, 5vw, 2.8rem); }
+  .loc-l2, .loc-l3 { margin-left: 0; }
+
+  /* RSVP section */
+  #rsvp-main-title { font-size: clamp(1.1rem, 3vw, 2rem); white-space: normal; }
+  .rsvp-subtitle-line { font-size: clamp(1.3rem, 3.5vw, 2.2rem); }
+  #rsvp-body { gap: 0.8rem; }
+
+  /* Gifts section */
+  #gifts-inner { flex-direction: column-reverse; gap: 1.5rem; }
+  #gifts-illustration { width: 55%; height: 32vh; }
+  .gifts-title-l1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+  .gifts-title-l2 { font-size: clamp(2.5rem, 7vw, 4rem); margin-left: 0.8rem; }
+  #gifts-message { font-size: clamp(0.95rem, 1.8vw, 1.1rem); }
 }
 
 
