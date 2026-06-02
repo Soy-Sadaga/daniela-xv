@@ -43,6 +43,16 @@ body {
   transform: translate(-50%,-50%);
 }
 
+/* En dispositivos táctiles (móvil/tablet): sin cursor personalizado.
+   Se oculta el cursor falso y se devuelve el cursor normal del sistema. */
+@media (hover: none), (pointer: coarse) {
+  html, body { cursor: auto !important; }
+  #cursor, #cursor-dot { display: none !important; }
+  a, button, [role="button"],
+  #entry-btn, #music-btn, #location-cta, #rsvp-wa-btn,
+  .photo-frame, #firefly-img, #ray-canvas { cursor: pointer !important; }
+}
+
 /* ─── Three.js Canvas ─── */
 #star-canvas {
   position: fixed; inset: 0;

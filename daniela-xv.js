@@ -326,27 +326,40 @@ tl7
 /* ═══════════════════════════════════════════
    CURSOR
 ═══════════════════════════════════════════ */
+// Detectar dispositivo táctil: en móviles/tablets NO usamos cursor personalizado
+// (no aporta nada sin mouse y consumía cálculo por frame → lo hacía más lento).
+const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches
+                   || ('ontouchstart' in window)
+                   || navigator.maxTouchPoints > 0;
+
 const cursor = document.getElementById('cursor');
 const dot    = document.getElementById('cursor-dot');
 let cx=0, cy=0, mx=0, my=0;
 
-document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; }, { passive:true });
+if (isTouchDevice) {
+  // Ocultar y desactivar el cursor personalizado en móvil
+  if (cursor) cursor.style.display = 'none';
+  if (dot)    dot.style.display = 'none';
+  // window._tickCursor queda undefined → el master loop lo salta (sin coste)
+} else {
+  document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; }, { passive:true });
 
-// Cursor updates merged into master rAF — no separate loop
-window._tickCursor = function(){
-  cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14;
-  cursor.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-  dot.style.transform    = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
-};
+  // Cursor updates merged into master rAF — no separate loop
+  window._tickCursor = function(){
+    cx+=(mx-cx)*0.14; cy+=(my-cy)*0.14;
+    cursor.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    dot.style.transform    = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+  };
 
-document.querySelectorAll('button,input,select,a,.photo-frame').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    gsap.to(cursor,{ width:40,height:40,borderColor:'var(--rose-light)',duration:0.35 });
+  document.querySelectorAll('button,input,select,a,.photo-frame').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{
+      gsap.to(cursor,{ width:40,height:40,borderColor:'var(--rose-light)',duration:0.35 });
+    });
+    el.addEventListener('mouseleave',()=>{
+      gsap.to(cursor,{ width:22,height:22,borderColor:'var(--gold)',duration:0.35 });
+    });
   });
-  el.addEventListener('mouseleave',()=>{
-    gsap.to(cursor,{ width:22,height:22,borderColor:'var(--gold)',duration:0.35 });
-  });
-});
+}
 
 
 /* ═══════════════════════════════════════════
