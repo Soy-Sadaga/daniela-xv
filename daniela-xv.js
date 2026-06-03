@@ -5,8 +5,15 @@
   const canvas = document.getElementById('star-canvas');
   const W = window.innerWidth, H = window.innerHeight;
 
+  // Equipos de menor potencia (móviles/tablets): aligeramos la escena 3D
+  // para que el scroll sea fluido (menos estrellas/partículas y menor
+  // resolución de render, que es lo que más cuesta en GPUs móviles).
+  const isLowPower = window.matchMedia('(max-width: 820px)').matches
+                  || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+                  || (navigator.maxTouchPoints || 0) > 0;
+
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference:'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isLowPower ? 1 : 1.5));
   renderer.setSize(W, H);
   renderer.setClearColor(0x000000, 0);
 
@@ -15,7 +22,7 @@
   cam.position.z = 6;
 
   /* ── Stars ── */
-  const N_STARS = 1800;
+  const N_STARS = isLowPower ? 850 : 1800;
   const sp  = new Float32Array(N_STARS * 3);
   const sc  = new Float32Array(N_STARS * 3);
   const ss  = new Float32Array(N_STARS);
@@ -64,7 +71,7 @@
   scene.add(starMesh);
 
   /* ── Nebula cloud ── */
-  const N_NEB = 180;
+  const N_NEB = isLowPower ? 90 : 180;
   const np = new Float32Array(N_NEB*3);
   const nc = new Float32Array(N_NEB*3);
   const ns = new Float32Array(N_NEB);
@@ -109,7 +116,7 @@
   scene.add(new THREE.Points(ng, nm));
 
   /* ── Gold float particles ── */
-  const N_FP = 80;
+  const N_FP = isLowPower ? 38 : 80;
   const fp   = new Float32Array(N_FP*3);
   const fspd = new Float32Array(N_FP);
   const fdx  = new Float32Array(N_FP);
@@ -187,10 +194,18 @@
 ═══════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
+// Ignorar los micro-resizes que provoca la barra de direcciones en móviles
+// (causaban saltos y que las escenas se desincronizaran al hacer scroll).
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 // Each scene spans 120vh of actual scroll distance.
 // Container = 840vh; max scroll ≈ 720vh → 6 scenes × 120vh = 720vh.
 const VH    = window.innerHeight;
 const SCENE = VH * 1.2; // 120vh per scene in pixels
+
+// Suavizado del scroll-scrub: más bajo = responde más rápido al dedo/rueda
+// (1.2 se sentía con retardo/"lento"; 0.9 es más ágil sin perder fluidez).
+const SCRUB = 0.9;
 
 /* Progress bar */
 ScrollTrigger.create({
@@ -208,7 +223,7 @@ ScrollTrigger.create({
 const tl1 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:'top top',
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl1
@@ -230,7 +245,7 @@ tl1
 const tl2 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl2
@@ -254,7 +269,7 @@ gsap.to('#pf3',{ y:'-=14', rotation:'-=2',   duration:4.7, ease:'sine.inOut', yo
 const tl3 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE*2}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl3
@@ -269,7 +284,7 @@ tl3
 const tl4 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE*3}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl4
@@ -284,7 +299,7 @@ tl4
 const tl5 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE*4}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl5
@@ -298,7 +313,7 @@ tl5
 const tl6 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE*5}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl6
@@ -312,7 +327,7 @@ tl6
 const tl7 = gsap.timeline({
   scrollTrigger:{
     trigger:'#scroll-container', start:`top+=${SCENE*6}`,
-    end:`+=${SCENE}`, scrub:1.2
+    end:`+=${SCENE}`, scrub:SCRUB
   }
 });
 tl7
@@ -321,6 +336,54 @@ tl7
   .fromTo('#rsvp-body',{ y:60, opacity:0, scale:0.96 },
                        { y:0, opacity:1, scale:1, ease:'back.out(1.4)' }, 0.35)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo VII — Tu Confirmación', 0.3);
+
+
+/* ═══════════════════════════════════════════
+   RED DE SEGURIDAD — Visibilidad de escenas
+   ───────────────────────────────────────────
+   Cada escena la encienden/apagan DOS timelines distintas (una la mete,
+   la siguiente la saca). Al hacer scroll rápido o cuando el navegador
+   móvil mueve la barra de direcciones, esas dos se desincronizan y una
+   escena se queda "pegada" visible bajo otra (el bug reportado).
+
+   Esta función es la ÚNICA fuente de verdad: según la posición de scroll
+   calcula qué escena está activa y obliga a OCULTAR cualquier escena que
+   no sea la actual ni su vecina en transición. Así nunca se solapan dos
+   escenas lejanas, pase lo que pase con el scrub.
+═══════════════════════════════════════════ */
+const orderedScenes = [
+  '#scene-cosmos', '#scene-reveal', '#scene-garden', '#scene-event',
+  '#scene-location', '#scene-dress', '#scene-gifts', '#scene-rsvp'
+].map(sel => document.querySelector(sel));
+const LAST_SCENE = orderedScenes.length - 1; // 7
+
+function enforceSceneVisibility(){
+  const p  = window.scrollY / SCENE;                          // posición en "unidades de escena"
+  const lo = Math.max(0, Math.min(LAST_SCENE, Math.floor(p)));
+  const hi = Math.max(0, Math.min(LAST_SCENE, Math.ceil(p)));
+  for(let i = 0; i < orderedScenes.length; i++){
+    const el = orderedScenes[i];
+    if(!el) continue;
+    if(i === lo || i === hi){
+      // Escena activa o en transición → visible (su opacidad la maneja su timeline)
+      if(el.style.visibility === 'hidden') el.style.visibility = '';
+    } else {
+      // Escena lejana → forzar oculta para que jamás se solape
+      if(el.style.visibility !== 'hidden'){
+        el.style.visibility = 'hidden';
+        el.style.opacity = '0';
+      }
+    }
+  }
+}
+
+ScrollTrigger.create({
+  trigger:'#scroll-container', start:'top top', end:'bottom bottom',
+  onUpdate:  enforceSceneVisibility,
+  onRefresh: enforceSceneVisibility
+});
+// Estado inicial correcto (oculta escenas 1..7 desde el arranque)
+enforceSceneVisibility();
 
 
 /* ═══════════════════════════════════════════
@@ -433,8 +496,12 @@ tick(); setInterval(tick,1000);
     };
   }
 
-  const wisps  = Array.from({length:35}, ()=>mkWisp(true));
-  const petals = Array.from({length:25}, ()=>mkPetal(true));
+  // Menos partículas en móviles/tablets para no recargar el dibujo por frame
+  const lowPower = window.matchMedia('(max-width: 820px)').matches
+                || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+                || (navigator.maxTouchPoints || 0) > 0;
+  const wisps  = Array.from({length: lowPower ? 18 : 35}, ()=>mkWisp(true));
+  const petals = Array.from({length: lowPower ? 12 : 25}, ()=>mkPetal(true));
 
   /* Batch draw — group by fill color to minimise state changes */
   window._tickParticles = function(){
