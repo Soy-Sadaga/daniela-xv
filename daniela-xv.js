@@ -231,8 +231,7 @@ tl1
   .to('#mtn-far',         { y:'-90px', ease:'none' }, 0)
   .to('#mtn-near',        { y:'-50px', ease:'none' }, 0)
   .to('#opening-copy',    { opacity:0, y:-25, ease:'power2.in' }, 0)
-  .to('#scene-cosmos',    { opacity:0, ease:'power1.in' }, 0.55)
-  .to('#scene-reveal',    { opacity:1, ease:'power1.out' }, 0.5)
+  /* (opacidad de escenas controlada por enforceSceneVisibility) */
   .fromTo('#xv-name',     { scale:0.5, opacity:0 },
                           { scale:1, opacity:1, ease:'back.out(1.8)' }, 0.58)
   .fromTo('#crown-glyph', { y:-50, opacity:0 },
@@ -249,8 +248,6 @@ const tl2 = gsap.timeline({
   }
 });
 tl2
-  .to('#scene-reveal',  { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-garden',  { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#pf1', { x:-120, y:60, opacity:0, rotation:-10 },
                   { x:0, y:0, opacity:1, rotation:0, ease:'back.out(1.4)' }, 0.3)
   .fromTo('#pf2', { x:120, y:70, opacity:0, rotation:10 },
@@ -273,8 +270,6 @@ const tl3 = gsap.timeline({
   }
 });
 tl3
-  .to('#scene-garden',   { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-event',    { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#event-container', { y:70, opacity:0, scale:0.92 },
                               { y:0, opacity:1, scale:1, ease:'back.out(1.3)' }, 0.35)
   .fromTo('#countdown',  { y:35, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.5)
@@ -288,8 +283,6 @@ const tl4 = gsap.timeline({
   }
 });
 tl4
-  .to('#scene-event',    { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-location', { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#location-content',
     { x:-80, opacity:0 },
     { x:0,   opacity:1, ease:'power2.out' }, 0.38)
@@ -303,8 +296,6 @@ const tl5 = gsap.timeline({
   }
 });
 tl5
-  .to('#scene-location', { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-dress',    { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#dress-copy',   { x:-70, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
   .fromTo('#dress-couple', { x:90, opacity:0 },  { x:0, opacity:1, ease:'back.out(1.3)' }, 0.42)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo V — El Código', 0.3);
@@ -317,8 +308,6 @@ const tl6 = gsap.timeline({
   }
 });
 tl6
-  .to('#scene-dress',  { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-gifts',  { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#gifts-illustration', { x:-70, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
   .fromTo('#gifts-copy',         { x:80,  opacity:0 }, { x:0, opacity:1, ease:'back.out(1.3)' }, 0.42)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo VI — Los Regalos', 0.3);
@@ -331,8 +320,6 @@ const tl7 = gsap.timeline({
   }
 });
 tl7
-  .to('#scene-gifts', { opacity:0, ease:'power1.in' }, 0)
-  .to('#scene-rsvp',  { opacity:1, ease:'power1.out' }, 0.3)
   .fromTo('#rsvp-body',{ y:60, opacity:0, scale:0.96 },
                        { y:0, opacity:1, scale:1, ease:'back.out(1.4)' }, 0.35)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo VII — Tu Confirmación', 0.3);
@@ -357,22 +344,50 @@ const orderedScenes = [
 ].map(sel => document.querySelector(sel));
 const LAST_SCENE = orderedScenes.length - 1; // 7
 
+// Suavizado tipo "smoothstep" (interpolación con arranque/freno suaves)
+function smoothstep(edge0, edge1, x){
+  const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+  return t * t * (3 - 2 * t);
+}
+
+// Opacidad de la escena i según la distancia (en unidades de escena) a su centro.
+// - Meseta totalmente visible cerca del centro (|d| ≤ 0.20)
+// - Fundido rápido entre 0.20 y 0.50
+// - Invisible más allá de 0.50
+// Como una escena llega a 0 justo cuando la vecina empieza a aparecer,
+// NUNCA hay dos escenas visibles a la vez (fundido secuencial determinista).
+function sceneOpacity(d){
+  const ad = Math.abs(d);
+  if(ad >= 0.5) return 0;
+  if(ad <= 0.2) return 1;
+  return 1 - smoothstep(0.2, 0.5, ad);
+}
+
+let _lastVis = new Array(orderedScenes.length).fill(null);
 function enforceSceneVisibility(){
-  const p  = window.scrollY / SCENE;                          // posición en "unidades de escena"
-  const lo = Math.max(0, Math.min(LAST_SCENE, Math.floor(p)));
-  const hi = Math.max(0, Math.min(LAST_SCENE, Math.ceil(p)));
+  const p = window.scrollY / SCENE; // posición en "unidades de escena" (0..LAST_SCENE)
   for(let i = 0; i < orderedScenes.length; i++){
     const el = orderedScenes[i];
     if(!el) continue;
-    if(i === lo || i === hi){
-      // Escena activa o en transición → visible (su opacidad la maneja su timeline)
-      if(el.style.visibility === 'hidden') el.style.visibility = '';
-    } else {
-      // Escena lejana → forzar oculta para que jamás se solape
-      if(el.style.visibility !== 'hidden'){
-        el.style.visibility = 'hidden';
+    // Clamp para que la primera y la última escena no se desvanezcan en los extremos
+    let d = p - i;
+    if(i === 0 && d < 0) d = 0;
+    if(i === LAST_SCENE && d > 0) d = 0;
+
+    const op = sceneOpacity(d);
+
+    if(op <= 0.001){
+      if(_lastVis[i] !== false){
         el.style.opacity = '0';
+        el.style.visibility = 'hidden';   // fuera del hit-testing: no captura clics
+        _lastVis[i] = false;
       }
+    } else {
+      if(_lastVis[i] !== true){
+        el.style.visibility = '';
+        _lastVis[i] = true;
+      }
+      el.style.opacity = op.toFixed(3);
     }
   }
 }
@@ -382,7 +397,7 @@ ScrollTrigger.create({
   onUpdate:  enforceSceneVisibility,
   onRefresh: enforceSceneVisibility
 });
-// Estado inicial correcto (oculta escenas 1..7 desde el arranque)
+// Estado inicial correcto desde el arranque
 enforceSceneVisibility();
 
 
