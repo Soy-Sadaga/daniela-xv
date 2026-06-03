@@ -169,6 +169,9 @@
     if(window._tickCursor) window._tickCursor();
     // Luciérnaga / location scene tick (merged)
     if(window._tickRay) window._tickRay();
+    // Visibilidad de escenas (cada frame: nunca se congela ni depende de
+    // que ScrollTrigger dispare onUpdate — robusto al 100%)
+    if(window._enforceScenes) window._enforceScenes();
   }
   masterLoop();
 
@@ -392,6 +395,11 @@ function enforceSceneVisibility(){
   }
 }
 
+// Exponer para que el bucle principal (rAF) la ejecute cada frame.
+// Así NO dependemos de que ScrollTrigger dispare onUpdate (que puede no
+// ocurrir si se inicializó con el scroll bloqueado).
+window._enforceScenes = enforceSceneVisibility;
+
 ScrollTrigger.create({
   trigger:'#scroll-container', start:'top top', end:'bottom bottom',
   onUpdate:  enforceSceneVisibility,
@@ -519,7 +527,10 @@ tick(); setInterval(tick,1000);
   const petals = Array.from({length: lowPower ? 12 : 25}, ()=>mkPetal(true));
 
   /* Batch draw — group by fill color to minimise state changes */
+  let _pframe = 0;
   window._tickParticles = function(){
+    // En móvil: dibujar a ~30fps (saltar 1 de cada 2 frames) para aligerar
+    if(lowPower && (_pframe++ & 1)) return;
     ctx.clearRect(0,0,W,H);
 
     // Update wisps
@@ -703,6 +714,16 @@ function spawnWisp(){}
                           // Habilitar scroll una vez visible la invitación
                           document.documentElement.style.overflowY = 'auto';
                           document.body.style.overflowY = 'auto';
+                          // ScrollTrigger se inicializó con el scroll BLOQUEADO,
+                          // por lo que no estaba rastreando el desplazamiento.
+                          // Al desbloquearlo hay que recalcular para que las
+                          // animaciones por scroll funcionen correctamente.
+                          if(window.ScrollTrigger){
+                            requestAnimationFrame(()=>{
+                              ScrollTrigger.refresh();
+                              if(window._enforceScenes) window._enforceScenes();
+                            });
+                          }
                         }
                       });
                     });
