@@ -194,6 +194,18 @@ body {
   mix-blend-mode: normal;
 }
 
+/* ── RENDIMIENTO en móvil/tablet (sección del castillo) ──
+   El castillo (#castle-world) se amplía hasta 9× durante el scroll. Aplicar
+   filtros con desenfoque (drop-shadow / blur) sobre esa imagen gigante obliga
+   al navegador a re-rasterizar en CADA frame → es lo que trababa al volver
+   hacia arriba a esta sección. En dispositivos táctiles los quitamos.
+   (En PC se conservan: ahí el rendimiento es fluido.) */
+@media (hover: none), (pointer: coarse) {
+  #castle-svg      { filter: none; }
+  #castle-base-haze{ filter: none; }
+  #fog-mist        { animation: none; }
+}
+
 
 /* Ground fog */
 #fog-base {
