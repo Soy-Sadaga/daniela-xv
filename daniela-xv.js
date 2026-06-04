@@ -271,10 +271,10 @@ tl2
   .fromTo('#garden-quote', { y:45, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.6)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo II — El Jardín', 0.3);
 
-/* Continuous frame float */
-gsap.to('#pf1',{ y:'-=18', rotation:'-=3.5', duration:5.2, ease:'sine.inOut', yoyo:true, repeat:-1 });
-gsap.to('#pf2',{ y:'-=22', rotation:'+=4',   duration:6.1, ease:'sine.inOut', yoyo:true, repeat:-1, delay:1.1 });
-gsap.to('#pf3',{ y:'-=14', rotation:'-=2',   duration:4.7, ease:'sine.inOut', yoyo:true, repeat:-1, delay:2.2 });
+/* (Se quitó la flotación continua de los marcos: entraba en conflicto con la
+   animación de entrada — se anclaba al valor inicial (y:-100) en vez del
+   reposo (y:0) — y dejaba la foto central desplazada hacia arriba/cortada.
+   La animación de entrada se conserva; las fotos quedan firmes en su sitio.) */
 
 /* ── S3→S4: Event Details ── */
 const tl3 = gsap.timeline({

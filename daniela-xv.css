@@ -339,6 +339,18 @@ body {
   will-change: transform;
 }
 
+/* ── Posición y TAMAÑO de los marcos (escritorio) ──
+   Fotos grandes y protagonistas. El tamaño se basa en la altura de la ventana
+   (vh) para que escalen y NUNCA se corten ni se salgan, en cualquier pantalla.
+   pf3 (la del centro) es la principal: un poco más grande. */
+#pf1 { left: 6%;  top: 14%; }
+#pf2 { right: 6%; top: 17%; }
+#pf3 { left: 50%; top: 8%; transform: translateX(-50%); }
+
+#pf1 .frame-mat,
+#pf2 .frame-mat { width: clamp(210px, 27vh, 320px); height: clamp(262px, 34vh, 400px); }
+#pf3 .frame-mat { width: clamp(232px, 30vh, 350px); height: clamp(290px, 38vh, 440px); }
+
 .frame-mat {
   border: 1.5px solid var(--gold);
   padding: 8px;
@@ -1770,7 +1782,18 @@ body {
   #entry-content { padding: 1.2rem 1.5rem; max-width: min(90vw, 600px); }
 
   #xv-name { font-size: clamp(2.8rem, 10vw, 6rem); }
-  .photo-frame { transform: scale(0.85) !important; }
+
+  /* Fotos en móvil/tablet: dos arriba (izq/der) y la principal centrada
+     debajo. Grandes y sin superponerse. Tamaño basado en el ancho (vw). */
+  #scene-garden #pf1 { left: 4%;  top: 8%;  right: auto; }
+  #scene-garden #pf2 { right: 4%; top: 8%;  left: auto; }
+  #scene-garden #pf3 { left: 50%; top: 41%; transform: translateX(-50%); }
+  #scene-garden #pf1 .frame-mat,
+  #scene-garden #pf2 .frame-mat { width: clamp(150px, 40vw, 300px); height: clamp(188px, 50vw, 375px); }
+  #scene-garden #pf3 .frame-mat { width: clamp(170px, 44vw, 330px); height: clamp(212px, 55vw, 412px); }
+
+  /* La cita baja para no chocar con la foto central */
+  #garden-quote { bottom: 6%; width: min(92vw, 560px); }
 }
 
 /* Móviles medianos (480px - 768px) */
@@ -1811,30 +1834,8 @@ body {
   #xv-years { font-size: clamp(0.8rem, 2vw, 1.5rem); }
   #name-tagline { font-size: clamp(0.75rem, 2vw, 1rem); }
 
-  /* Photo frames — reposicionados para que NO se superpongan en móvil */
-  #scene-garden #pf1 {
-    left: 5% !important;
-    top: 7% !important;
-    right: auto !important;
-    transform: scale(0.6) !important;
-    transform-origin: top left;
-  }
-  #scene-garden #pf2 {
-    right: 5% !important;
-    left: auto !important;
-    top: 7% !important;
-    transform: scale(0.6) !important;
-    transform-origin: top right;
-  }
-  #scene-garden #pf3 {
-    left: 50% !important;
-    top: 36% !important;
-    transform: translateX(-50%) scale(0.6) !important;
-    transform-origin: top center;
-  }
-
-  /* Garden quote — baja un poco para no chocar con el marco central */
-  #garden-quote { bottom: 7%; width: min(92vw, 520px); }
+  /* (El layout y tamaño de las fotos se define en el @media de 1024px,
+     que también aplica aquí. Solo ajustamos el texto de la cita.) */
   #garden-quote blockquote { font-size: clamp(0.9rem, 2vw, 1.2rem); }
 
   /* Event container */
