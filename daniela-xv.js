@@ -210,14 +210,14 @@ const SCENE = VH * 1.2; // 120vh per scene in pixels
 // (1.2 se sentía con retardo/"lento"; 0.9 es más ágil sin perder fluidez).
 const SCRUB = 0.9;
 
-// En móvil/tablet reducimos la ampliación del castillo. A 9× la capa supera
-// el límite de textura de la GPU (>4096px) y se re-rasteriza en cada frame
-// (trababa al volver a la 1ª sección). A ~4× cabe en una sola textura y el
-// escalado pasa a ser un composite barato. (En PC se mantiene el 9× original.)
+// La ampliación del castillo a 9× creaba una capa enorme (el contenedor mide
+// 220% del ancho) que el navegador re-rasterizaba en cada frame → trababa
+// MUCHÍSIMO al volver a la 1ª sección, tanto en móvil como en PC. Reducimos la
+// ampliación: la capa pasa a componerse barato y el zoom sigue viéndose bien.
 const IS_MOBILE_GSAP = window.matchMedia('(max-width: 820px)').matches
                     || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
                     || (navigator.maxTouchPoints || 0) > 0;
-const CASTLE_SCALE = IS_MOBILE_GSAP ? 4 : 9;
+const CASTLE_SCALE = IS_MOBILE_GSAP ? 4 : 5;
 
 /* Progress bar */
 ScrollTrigger.create({

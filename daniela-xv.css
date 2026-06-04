@@ -163,13 +163,12 @@ body {
   width: clamp(260px, 30vw, 480px);
   height: auto;
   display: block;
-  /* Iluminación atmosférica que funde el castillo con el estanque.
-     La imagen ya brilla en dorado, así que el halo propio es sutil:
-     leve brillo cálido + halo verde del entorno + sombra de contacto que lo ancla */
-  filter:
-    drop-shadow(0 0 24px rgba(233,196,106,0.22))
-    drop-shadow(0 0 50px rgba(45,106,79,0.26))
-    drop-shadow(0 12px 16px rgba(3,12,7,0.55));
+  /* SIN filtros: aplicar drop-shadow con desenfoque sobre esta imagen mientras
+     el contenedor se amplía durante el scroll obligaba al navegador a
+     re-rasterizar en cada frame → trababa muchísimo al volver a esta sección
+     (tanto en móvil como en PC). La imagen ya tiene su propio brillo dorado y
+     la neblina de base la funde con el estanque, así que el halo no es necesario. */
+  filter: none;
   pointer-events: none;
   z-index: 3;
 }
@@ -190,20 +189,14 @@ body {
       rgba(11,34,22,0.55) 38%,
       rgba(20,52,40,0.22) 64%,
       transparent 85%);
-  filter: blur(6px);
+  /* sin blur: la rasterización del desenfoque al escalar también trababa */
   mix-blend-mode: normal;
 }
 
-/* ── RENDIMIENTO en móvil/tablet (sección del castillo) ──
-   El castillo (#castle-world) se amplía hasta 9× durante el scroll. Aplicar
-   filtros con desenfoque (drop-shadow / blur) sobre esa imagen gigante obliga
-   al navegador a re-rasterizar en CADA frame → es lo que trababa al volver
-   hacia arriba a esta sección. En dispositivos táctiles los quitamos.
-   (En PC se conservan: ahí el rendimiento es fluido.) */
+/* En móvil además detenemos la animación de niebla durante esa sección
+   (un detalle sutil que no aporta y ahorra trabajo por frame). */
 @media (hover: none), (pointer: coarse) {
-  #castle-svg      { filter: none; }
-  #castle-base-haze{ filter: none; }
-  #fog-mist        { animation: none; }
+  #fog-mist { animation: none; }
 }
 
 
