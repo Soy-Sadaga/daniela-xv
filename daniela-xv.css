@@ -1559,7 +1559,7 @@ body {
   margin: 0.1rem 0;
 }
 #entry-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cinzel Decorative', serif;
   font-weight: 700;
   font-size: clamp(5.5rem, 16vw, 14rem);
   color: transparent;
