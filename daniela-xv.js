@@ -720,20 +720,17 @@ function spawnWisp(){}
                         ease: 'power2.inOut',
                         onStart(){
                           sceneCosmos.style.pointerEvents = 'auto';
-                        },
-                        onComplete(){
-                          // Habilitar scroll una vez visible la invitación
+                          // Habilitar el scroll DE INMEDIATO, apenas aparece la
+                          // invitación (antes esperaba a que terminara el fundido
+                          // de 1.1s → por eso tardaba 1-2s en poder hacer scroll).
                           document.documentElement.style.overflowY = 'auto';
                           document.body.style.overflowY = 'auto';
-                          // ScrollTrigger se inicializó con el scroll BLOQUEADO,
-                          // por lo que no estaba rastreando el desplazamiento.
-                          // Al desbloquearlo hay que recalcular para que las
-                          // animaciones por scroll funcionen correctamente.
+                          // ScrollTrigger se inicializó con el scroll BLOQUEADO;
+                          // al desbloquearlo hay que recalcular para que rastree
+                          // bien el desplazamiento.
                           if(window.ScrollTrigger){
-                            requestAnimationFrame(()=>{
-                              ScrollTrigger.refresh();
-                              if(window._enforceScenes) window._enforceScenes();
-                            });
+                            ScrollTrigger.refresh();
+                            if(window._enforceScenes) window._enforceScenes();
                           }
                         }
                       });
