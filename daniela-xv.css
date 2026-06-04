@@ -1561,7 +1561,9 @@ body {
 #entry-name {
   font-family: 'Cinzel Decorative', serif;
   font-weight: 700;
-  font-size: clamp(5.5rem, 16vw, 14rem);
+  /* Reducido en escritorio (antes 16vw/14rem) para que la "A" final no llegue
+     al castillo de la esquina. Móvil/tablet conservan su tamaño en los @media. */
+  font-size: clamp(5rem, 12vw, 11rem);
   color: transparent;
   background: linear-gradient(
     160deg,
