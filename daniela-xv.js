@@ -201,10 +201,12 @@ gsap.registerPlugin(ScrollTrigger);
 // (causaban saltos y que las escenas se desincronizaran al hacer scroll).
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-// Each scene spans 120vh of actual scroll distance.
-// Container = 840vh; max scroll ≈ 720vh → 6 scenes × 120vh = 720vh.
+// Distancia de scroll por sección. 0.9 = 90vh por sección (antes 1.2/120vh):
+// ~25% menos scroll → cambiar de sección se siente un poco más ágil.
+// IMPORTANTE: si cambias este valor, ajusta también la altura de
+// #scroll-container en el CSS (debe ser ≈ SCENE_mult * 9 vh).
 const VH    = window.innerHeight;
-const SCENE = VH * 1.2; // 120vh per scene in pixels
+const SCENE = VH * 0.9; // 90vh por sección
 
 // Suavizado del scroll-scrub: más bajo = responde más rápido al dedo/rueda
 // (1.2 se sentía con retardo/"lento"; 0.9 es más ágil sin perder fluidez).

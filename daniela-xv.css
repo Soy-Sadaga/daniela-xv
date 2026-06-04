@@ -61,7 +61,7 @@ body {
 }
 
 /* ─── Scroll Container ─── */
-#scroll-container { height: 1080vh; position: relative; z-index: 1; }
+#scroll-container { height: 810vh; position: relative; z-index: 1; }
 
 /* ─── Fixed Viewport ─── */
 #viewport {
