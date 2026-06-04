@@ -1148,7 +1148,7 @@ body {
 /* Foto de fondo real del loader — NÍTIDA (sin desenfoque) */
 .loader-photo {
   position: absolute; inset: 0;
-  background-image: url('fondo_pantalla_de_carga.png');
+  background-image: url('fondo_pantalla_de_carga.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1308,7 +1308,7 @@ body {
 .ep-photo-blur {
   position: absolute;
   inset: -2%;
-  background-image: url('Fondo_entrada.png');
+  background-image: url('Fondo_entrada.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
