@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=26">
+  <link rel="stylesheet" href="daniela-xv.css?v=27">
 </head>
 <body>
 
@@ -461,34 +461,51 @@
   </div><!-- /scene-reveal -->
 
 
-  <!-- ▓ SCENE 3 — Garden & Photos ▓ -->
+  <!-- ▓ SCENE 3 — Galería de fotos (carrusel a pantalla completa) ▓ -->
   <div class="scene" id="scene-garden">
 
-    <!-- Photo frame 1 — left  (tamaño y posición en el CSS) -->
-    <div class="photo-frame" id="pf1">
-      <div class="frame-mat">
-        <div class="frame-photo-area">✦</div>
-      </div>
-      <div class="frame-label">Mis inicios</div>
+    <!-- ════════════════════════════════════════════════════════════
+         CARRUSEL DE FOTOS
+         👉 Para poner una FOTO REAL en una diapositiva, ponle al
+            <div class="gal-slide">  el atributo:
+              style="background-image:url('mi-foto.webp')"
+            y borra el <div class="gal-ph">…</div> de adentro.
+         👉 Puedes AÑADIR o QUITAR tantas .gal-slide como quieras
+            (1, 2, 3 o más). El carrusel se adapta solo.
+    ════════════════════════════════════════════════════════════ -->
+    <div id="gallery">
+      <div class="gal-slide"><div class="gal-ph"><span class="gal-ph-i">♛</span><span class="gal-ph-t">Tu foto 1</span></div></div>
+      <div class="gal-slide"><div class="gal-ph"><span class="gal-ph-i">✦</span><span class="gal-ph-t">Tu foto 2</span></div></div>
+      <div class="gal-slide"><div class="gal-ph"><span class="gal-ph-i">❧</span><span class="gal-ph-t">Tu foto 3</span></div></div>
+      <div class="gal-slide"><div class="gal-ph"><span class="gal-ph-i">✦</span><span class="gal-ph-t">Tu foto 4</span></div></div>
     </div>
 
-    <!-- Photo frame 2 — right -->
-    <div class="photo-frame" id="pf2">
-      <div class="frame-mat">
-        <div class="frame-photo-area">✦</div>
-      </div>
-      <div class="frame-label">Mis sueños</div>
+    <!-- Capa oscura (degradado) para que el texto se lea sobre la foto -->
+    <div id="gal-overlay"></div>
+
+    <!-- Marca: corona + "Mis XV Años" (arriba a la izquierda) -->
+    <div id="gal-brand">
+      <span class="gal-brand-crown">♛</span>
+      <span class="gal-brand-txt">Mis XV Años</span>
     </div>
 
-    <!-- Photo frame 3 — center top (la principal) -->
-    <div class="photo-frame" id="pf3">
-      <div class="frame-mat">
-        <div class="frame-photo-area" style="font-size:3.5rem;">♛</div>
-      </div>
-      <div class="frame-label">Mi historia</div>
+    <!-- Navegación vertical decorativa (izquierda) -->
+    <div id="gal-sidenav">
+      <div class="gal-side-item"><span class="gal-side-ic">♛</span><span class="gal-side-tx">Mi Historia</span></div>
+      <span class="gal-side-line"></span>
+      <div class="gal-side-item"><span class="gal-side-ic">✦</span><span class="gal-side-tx">Mis Inicios</span></div>
+      <span class="gal-side-line"></span>
+      <div class="gal-side-item"><span class="gal-side-ic">❧</span><span class="gal-side-tx">Mis Sueños</span></div>
     </div>
 
-    <!-- Garden quote -->
+    <!-- Flechas para cambiar de foto manualmente -->
+    <button id="gal-prev" class="gal-arrow" aria-label="Foto anterior">‹</button>
+    <button id="gal-next" class="gal-arrow" aria-label="Foto siguiente">›</button>
+
+    <!-- Puntos indicadores (los genera el JS según el número de fotos) -->
+    <div id="gal-dots"></div>
+
+    <!-- Cita -->
     <div id="garden-quote">
       <blockquote>
         Han pasado quince años desde que llegué a este mundo a llenarlo de magia.
@@ -1495,6 +1512,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=15" defer></script>
+<script src="daniela-xv.js?v=16" defer></script>
 </body>
 </html>

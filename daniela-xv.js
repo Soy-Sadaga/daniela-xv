@@ -262,19 +262,12 @@ const tl2 = gsap.timeline({
   }
 });
 tl2
-  .fromTo('#pf1', { x:-120, y:60, opacity:0, rotation:-10 },
-                  { x:0, y:0, opacity:1, rotation:0, ease:'back.out(1.4)' }, 0.3)
-  .fromTo('#pf2', { x:120, y:70, opacity:0, rotation:10 },
-                  { x:0, y:0, opacity:1, rotation:0, ease:'back.out(1.4)' }, 0.4)
-  .fromTo('#pf3', { y:-100, opacity:0, rotation:-4 },
-                  { y:0, opacity:1, rotation:0, ease:'back.out(1.4)' }, 0.5)
-  .fromTo('#garden-quote', { y:45, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.6)
+  /* Entrada suave de los controles de la galería (la foto la maneja el
+     carrusel; la opacidad de la escena la maneja enforceSceneVisibility) */
+  .fromTo('#gal-brand',   { y:-12, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.35)
+  .fromTo('#gal-sidenav', { x:-25, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.4)
+  .fromTo('#garden-quote',{ y:30, opacity:0 },  { y:0, opacity:1, ease:'power2.out' }, 0.5)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo II — El Jardín', 0.3);
-
-/* (Se quitó la flotación continua de los marcos: entraba en conflicto con la
-   animación de entrada — se anclaba al valor inicial (y:-100) en vez del
-   reposo (y:0) — y dejaba la foto central desplazada hacia arriba/cortada.
-   La animación de entrada se conserva; las fotos quedan firmes en su sitio.) */
 
 /* ── S3→S4: Event Details ── */
 const tl3 = gsap.timeline({
@@ -487,6 +480,69 @@ function tick(){
   }
 }
 tick(); setInterval(tick,1000);
+
+
+/* ═══════════════════════════════════════════
+   GALERÍA DE FOTOS — Carrusel (Scene 3)
+   Auto-avanza cada ~3.5s + flechas + puntos.
+═══════════════════════════════════════════ */
+(function initGallery(){
+  const gallery = document.getElementById('gallery');
+  if(!gallery) return;
+  const slides = Array.from(gallery.querySelectorAll('.gal-slide'));
+  if(!slides.length) return;
+
+  const dotsWrap = document.getElementById('gal-dots');
+  const prevBtn  = document.getElementById('gal-prev');
+  const nextBtn  = document.getElementById('gal-next');
+  const sceneEl  = document.getElementById('scene-garden');
+  const INTERVAL = 3500; // ms entre cambios automáticos
+  let idx = 0, timer = null;
+
+  // Construir los puntos indicadores (uno por foto)
+  const dots = [];
+  if(dotsWrap){
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'gal-dot' + (i === 0 ? ' is-active' : '');
+      d.setAttribute('aria-label', 'Ir a la foto ' + (i + 1));
+      d.addEventListener('click', () => go(i, true));
+      dotsWrap.appendChild(d);
+      dots.push(d);
+    });
+  }
+  slides[0].classList.add('is-active');
+
+  function go(n, manual){
+    slides[idx].classList.remove('is-active');
+    if(dots[idx]) dots[idx].classList.remove('is-active');
+    idx = (n + slides.length) % slides.length;
+    slides[idx].classList.add('is-active');
+    if(dots[idx]) dots[idx].classList.add('is-active');
+    if(manual) restart(); // si el usuario interactúa, reinicia el temporizador
+  }
+  const next = () => go(idx + 1);
+  const prev = () => go(idx - 1);
+
+  function start(){ if(slides.length > 1 && !timer) timer = setInterval(next, INTERVAL); }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+  function restart(){ stop(); start(); }
+
+  if(nextBtn) nextBtn.addEventListener('click', () => go(idx + 1, true));
+  if(prevBtn) prevBtn.addEventListener('click', () => go(idx - 1, true));
+
+  // Pausar el auto-avance cuando la sección no está a la vista (ahorra trabajo
+  // y hace que al volver el cambio se vea desde un punto natural).
+  if(sceneEl){
+    setInterval(() => {
+      const visible = getComputedStyle(sceneEl).visibility !== 'hidden'
+                   && parseFloat(sceneEl.style.opacity || '0') > 0.35;
+      if(visible) start(); else stop();
+    }, 700);
+  }
+
+  start();
+})();
 
 
 /* ═══════════════════════════════════════════
