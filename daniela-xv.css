@@ -61,7 +61,10 @@ body {
 }
 
 /* ─── Scroll Container ─── */
-#scroll-container { height: 810vh; position: relative; z-index: 1; }
+/* Espaciador que da la altura del scroll. DEBE tener pointer-events:none:
+   su z-index lo dejaba ENCIMA del #viewport e interceptaba todos los clics
+   de los botones de las escenas (Cómo llegar, luciérnaga, WhatsApp). */
+#scroll-container { height: 810vh; position: relative; z-index: 1; pointer-events: none; }
 
 /* ─── Fixed Viewport ─── */
 #viewport {
