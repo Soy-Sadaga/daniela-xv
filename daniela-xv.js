@@ -878,8 +878,19 @@ function spawnWisp(){}
     const locAddr = document.getElementById('loc-venue-addr');
     if(locName) locName.textContent = data.lugarFiesta   || 'Lugar del Evento';
     if(locAddr) locAddr.textContent = data.direccionFiesta || 'La dirección exacta te espera en el mapa';
-    const query = encodeURIComponent((data.lugarFiesta || '') + ' ' + (data.direccionFiesta || ''));
-    window._gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + query;
+    // Enlace de Google Maps del lugar de la fiesta.
+    // Lo usan el botón "Cómo llegar" Y la luciérnaga. (Cambia este enlace
+    // cuando tengas la ubicación definitiva del salón.)
+    window._gmapsUrl = 'https://maps.app.goo.gl/KUujauNwB3ikRurs5';
+
+    // WhatsApp — botón "Confirmar Asistencia": número + mensaje predefinido.
+    const waNumero  = '573013246362'; // 57 = código de Colombia
+    const waMensaje =
+      '✨🏰 Hola, quiero confirmar mi asistencia a los XV años de ' + (data.nombre || 'Daniela') + '.\n' +
+      'Mi nombre es [Nombre del invitado] y estoy muy emocionado(a) de acompañarte en esta noche tan especial, llena de magia y sueños. 💖👑\n' +
+      '¡Gracias por la invitación! ✨';
+    const waBtn = document.getElementById('rsvp-wa-btn');
+    if(waBtn) waBtn.setAttribute('href', 'https://wa.me/' + waNumero + '?text=' + encodeURIComponent(waMensaje));
 
     // Update countdown target date
     window._countdownDate = new Date(data.fechaEvento + 'T' + data.horaFiesta + ':00').getTime();
@@ -1132,8 +1143,11 @@ function spawnWisp(){}
         });
       }, i * 28);
     }
+    // Abrir AHORA, dentro del gesto de clic. Con setTimeout el navegador
+    // bloqueaba la ventana emergente (no estaba en el gesto del usuario) →
+    // por eso "no hacía nada". El efecto de estela sigue siendo visual aparte.
     const url = window._gmapsUrl || 'https://maps.google.com/';
-    setTimeout(()=>{ window.open(url, '_blank', 'noopener'); }, 660);
+    window.open(url, '_blank', 'noopener');
   }
 
   /* ── listeners ── */
