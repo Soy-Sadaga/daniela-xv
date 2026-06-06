@@ -101,6 +101,7 @@ body {
 
 /* ─── Chapter Label ─── */
 #chapter-label {
+  display: none; /* Etiqueta de capítulo oculta (a petición) en todas las secciones y dispositivos */
   position: fixed; top: 1.8rem; right: 2rem;
   font-family: 'Cinzel', serif; font-size: 0.5rem;
   letter-spacing: 0.5em; color: rgba(233,196,106,0.5);
