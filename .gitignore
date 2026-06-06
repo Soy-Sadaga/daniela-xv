@@ -1,0 +1,10 @@
+# Dependencias temporales (solo se usan localmente para optimizar imágenes/audio)
+node_modules/
+package.json
+package-lock.json
+
+# Respaldo local del audio original (no se sirve en la web)
+music_original.mp3
+
+# Scripts temporales de construcción
+_*.js

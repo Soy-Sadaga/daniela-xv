@@ -368,9 +368,29 @@ function sceneOpacity(d){
   return 1 - smoothstep(0.2, 0.5, ad);
 }
 
+// ─── Lazy-load de fondos pesados de secciones ───
+// Los fondos con [data-bg] se descargan solo al acercarse a su sección
+// (con margen de anticipación para que nunca se vean a medio cargar).
+let _lazyBgEls = null;
+function lazyLoadBackgrounds(p){
+  if(_lazyBgEls === null) _lazyBgEls = Array.from(document.querySelectorAll('[data-bg]'));
+  if(!_lazyBgEls.length) return;
+  const PRELOAD = 1.6; // secciones de anticipación
+  for(let i = _lazyBgEls.length - 1; i >= 0; i--){
+    const el  = _lazyBgEls[i];
+    const idx = parseFloat(el.getAttribute('data-scene')) || 0;
+    if(p >= idx - PRELOAD){
+      el.style.backgroundImage = "url('" + el.getAttribute('data-bg') + "')";
+      el.removeAttribute('data-bg');
+      _lazyBgEls.splice(i, 1);
+    }
+  }
+}
+
 let _lastVis = new Array(orderedScenes.length).fill(null);
 function enforceSceneVisibility(){
   const p = window.scrollY / SCENE; // posición en "unidades de escena" (0..LAST_SCENE)
+  lazyLoadBackgrounds(p);
   for(let i = 0; i < orderedScenes.length; i++){
     const el = orderedScenes[i];
     if(!el) continue;

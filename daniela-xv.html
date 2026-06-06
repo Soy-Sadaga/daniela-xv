@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=32">
+  <link rel="stylesheet" href="daniela-xv.css?v=33">
 </head>
 <body>
 
@@ -351,7 +351,7 @@
 
 <!-- ─── Background Music ─── -->
 <audio id="bg-audio" loop preload="metadata">
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3?v=2" type="audio/mpeg">
 </audio>
 <button id="music-btn" aria-label="Música de fondo">
   <div id="music-icon-static">
@@ -520,7 +520,7 @@
   <div class="scene" id="scene-event">
 
     <!-- Fondo (estanque con rana coronada, lotos y libélulas) -->
-    <div id="cd-bg"></div>
+    <div id="cd-bg" data-bg="fondo_cuenta_regresiva.webp" data-scene="3"></div>
     <div id="cd-overlay"></div>
 
     <div id="event-container">
@@ -599,7 +599,7 @@
     <canvas id="ray-canvas"></canvas>
 
     <!-- Luciérnaga PNG — transparent bg, flotante, clickeable → Google Maps -->
-    <img id="firefly-img" src="luciernaga.png" alt="Luciérnaga" draggable="false">
+    <img id="firefly-img" src="luciernaga.webp" alt="Luciérnaga" draggable="false">
 
     <!-- Neblina nocturna en capas CSS -->
     <div class="ray-mist ray-mist-a"></div>
@@ -647,7 +647,7 @@
   <div class="scene" id="scene-dress">
 
     <!-- Fondo (pareja, lotos, libélulas) -->
-    <div id="dress-bg"></div>
+    <div id="dress-bg" data-bg="fondo_vestimenta.webp" data-scene="5"></div>
     <div id="dress-overlay"></div>
 
     <div id="dress-content">
@@ -723,7 +723,7 @@
   <div class="scene" id="scene-gifts">
 
     <!-- Fondo (árbol con sobres, lotos, libélulas) -->
-    <div id="gifts-bg"></div>
+    <div id="gifts-bg" data-bg="fondo_lluvia_sobres.webp" data-scene="6"></div>
     <div id="gifts-overlay"></div>
 
     <div id="gifts-content">
@@ -973,6 +973,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=19" defer></script>
+<script src="daniela-xv.js?v=20" defer></script>
 </body>
 </html>

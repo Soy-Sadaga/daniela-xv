@@ -458,8 +458,9 @@ body {
 /* Fondo (estanque con rana, lotos, libélulas) */
 #cd-bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url('fondo_cuenta_regresiva.webp') center center / cover no-repeat;
+  /* La imagen se carga con lazy-load (JS) al acercarse; ver data-bg en el HTML */
   background-color: #07150e;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
 }
 /* Capa sutil para realzar el texto dorado del centro */
 #cd-overlay {
@@ -592,8 +593,9 @@ body {
 }
 #dress-bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url('fondo_vestimenta.webp') center center / cover no-repeat;
+  /* La imagen se carga con lazy-load (JS) al acercarse; ver data-bg en el HTML */
   background-color: #07150e;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
 }
 /* Oscurece el lado izquierdo (texto) y deja ver la pareja a la derecha */
 #dress-overlay {
@@ -1836,8 +1838,9 @@ body {
 }
 #gifts-bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url('fondo_lluvia_sobres.webp') center center / cover no-repeat;
+  /* La imagen se carga con lazy-load (JS) al acercarse; ver data-bg en el HTML */
   background-color: #07150e;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
 }
 /* Oscurece el lado derecho (texto), deja ver el árbol a la izquierda */
 #gifts-overlay {
