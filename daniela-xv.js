@@ -303,8 +303,7 @@ const tl5 = gsap.timeline({
   }
 });
 tl5
-  .fromTo('#dress-copy',   { x:-70, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
-  .fromTo('#dress-couple', { x:90, opacity:0 },  { x:0, opacity:1, ease:'back.out(1.3)' }, 0.42)
+  .fromTo('#dress-content', { x:-40, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo V — El Código', 0.3);
 
 /* ── S6→S7: Mesa de Regalos ── */
@@ -315,8 +314,7 @@ const tl6 = gsap.timeline({
   }
 });
 tl6
-  .fromTo('#gifts-illustration', { x:-70, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
-  .fromTo('#gifts-copy',         { x:80,  opacity:0 }, { x:0, opacity:1, ease:'back.out(1.3)' }, 0.42)
+  .fromTo('#gifts-content', { x:40, opacity:0 }, { x:0, opacity:1, ease:'power2.out' }, 0.35)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo VI — Los Regalos', 0.3);
 
 /* ── S7→S8: RSVP ── */
@@ -876,14 +874,18 @@ function spawnWisp(){}
       detailTexts[1].innerHTML = `Gran Fiesta de Quinceañera — ${data.horaFiesta}\n<span class="detail-sub">${data.lugarFiesta} &nbsp;·&nbsp; ${data.direccionFiesta}</span>`;
     }
 
-    // Event date
-    const bigDate = document.querySelector('.big-date');
-    if(bigDate) {
-      const dateObj = new Date(data.fechaEvento);
-      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      const formatted = days[dateObj.getDay()] + ', ' + dateObj.getDate() + ' de ' + months[dateObj.getMonth()];
-      bigDate.textContent = formatted;
+    // Fecha del evento — día / mes / año por separado (cuenta regresiva).
+    // Se parsea manualmente (sin new Date) para evitar el desfase de zona
+    // horaria que podía mostrar el día anterior (p. ej. 18 en vez de 19).
+    {
+      const parts = (data.fechaEvento || '2026-09-19').split('-'); // [YYYY, MM, DD]
+      const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      const dayEl   = document.getElementById('cd-day');
+      const monthEl = document.getElementById('cd-month');
+      const yearEl  = document.getElementById('cd-year');
+      if(dayEl)   dayEl.textContent   = String(parseInt(parts[2], 10));
+      if(monthEl) monthEl.textContent = meses[parseInt(parts[1], 10) - 1] || '';
+      if(yearEl)  yearEl.textContent  = parts[0];
     }
 
     // Photo labels + images

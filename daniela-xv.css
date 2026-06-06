@@ -446,182 +446,121 @@ body {
 }
 
 /* ══════════════════════════════
-   SCENE 4 — EVENT DETAILS
+   SCENE 4 — CUENTA REGRESIVA
 ══════════════════════════════ */
 #scene-event {
   z-index: 10;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(45,106,79,0.1) 0%, transparent 70%);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: clamp(2.5vh, 5vh, 6vh);
+  overflow: hidden;
+}
+
+/* Fondo (estanque con rana, lotos, libélulas) */
+#cd-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('fondo_cuenta_regresiva.webp') center center / cover no-repeat;
+  background-color: #07150e;
+}
+/* Capa sutil para realzar el texto dorado del centro */
+#cd-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 50% 36%, rgba(6,18,12,0.45) 0%, transparent 72%);
 }
 
 #event-container {
-  text-align: center; width: min(860px, 92vw); position: relative;
+  position: relative; z-index: 2;
+  text-align: center; width: min(920px, 94vw);
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* Ornamento de loto (arriba) */
+.cd-lotus {
+  width: clamp(44px, 6vh, 70px); height: auto;
+  filter: drop-shadow(0 0 10px rgba(233,196,106,0.5));
+  margin-bottom: clamp(0.4rem, 1.2vh, 0.9rem);
 }
 
 .sec-label {
-  font-family: 'Cinzel', serif; font-size: clamp(0.45rem,0.8vw,0.6rem);
-  letter-spacing: 0.65em; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 0.6rem; opacity: 0.8;
-}
-.big-date {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(1.6rem,4.5vw,4rem); color: var(--ivory);
-  filter: drop-shadow(0 0 25px rgba(233,196,106,0.35));
-  line-height: 1.2;
-}
-.gold-year {
-  font-family: 'Cinzel', serif; font-size: clamp(1rem,2.5vw,2rem);
-  color: var(--gold); letter-spacing: 0.3em; display: block; margin-bottom: 0;
+  font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 0.9vw, 0.66rem);
+  letter-spacing: 0.6em; color: rgba(233,196,106,0.82);
+  text-transform: uppercase; margin-bottom: clamp(0.4rem, 1.2vh, 0.9rem);
 }
 
-.vert-rule {
-  width: 1px; height: 55px;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  margin: 1.4rem auto;
+/* Fecha grande */
+.cd-date { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.cd-day {
+  font-family: 'Cinzel Decorative', serif; font-weight: 700;
+  font-size: clamp(3.2rem, min(13vh, 15vw), 7rem); line-height: 0.9;
+  color: transparent;
+  background: linear-gradient(150deg, #ffe9a8 0%, #e9c46a 38%, #c8941c 62%, #ffe083 100%);
+  -webkit-background-clip: text; background-clip: text;
+  filter: drop-shadow(0 0 26px rgba(233,196,106,0.4));
+}
+.cd-month {
+  font-family: 'Cinzel', serif; font-weight: 600;
+  font-size: clamp(1.2rem, min(4.4vh, 6.5vw), 2.6rem);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-light);
+  margin-top: clamp(0.2rem, 0.8vh, 0.5rem);
+  text-shadow: 0 0 18px rgba(233,196,106,0.3);
+}
+.cd-year {
+  font-family: 'Cinzel', serif; font-size: clamp(0.85rem, 2.2vh, 1.4rem);
+  letter-spacing: 0.45em; color: rgba(233,196,106,0.85);
+  margin-top: clamp(0.15rem, 0.6vh, 0.4rem);
 }
 
-.detail-text {
-  font-size: clamp(0.85rem,1.4vw,1.1rem);
-  color: var(--silver); letter-spacing: 0.18em; margin: 0.3rem 0;
+/* Separador */
+.cd-divider {
+  display: flex; align-items: center; gap: 0.9rem;
+  width: min(360px, 70vw);
+  margin: clamp(0.9rem, 2.4vh, 1.8rem) 0 clamp(0.5rem, 1.2vh, 0.9rem);
 }
-.detail-sub {
-  font-size: 0.85em; opacity: 0.55; font-style: italic;
-  display: block; margin-top: 0.15rem;
-}
+.cd-div-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(233,196,106,0.55), transparent); }
+.cd-div-gem { color: var(--gold); font-size: 0.6rem; }
 
-/* Intro del countdown */
 .cd-intro {
   font-family: 'Cinzel', serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.52em;
-  color: rgba(233,196,106,0.48);
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+  letter-spacing: 0.5em; color: rgba(233,196,106,0.72);
   text-transform: uppercase;
-  margin: 2.2rem 0 1.6rem;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
 }
 
-/* ─── Countdown Wrap (botanical frame container) ─── */
-#countdown-wrap {
-  position: relative;
-  display: inline-block;
-  overflow: visible;
-}
-
-/* Botanical SVG overlay */
-#cd-botanical {
-  position: absolute;
-  left: -52px; top: -52px;
-  width: calc(100% + 104px);
-  height: calc(100% + 104px);
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
-
-/* Fireflies */
-.firefly {
-  position: absolute;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: rgba(233,196,106,0.9);
-  pointer-events: none;
-  z-index: 4;
-  left: var(--fx, 50%);
-  top:  var(--fy, 50%);
-  transform: translate(-50%,-50%);
-  animation:
-    fireflyDrift var(--fd, 4s) ease-in-out infinite alternate,
-    fireflyBlink calc(var(--fd, 4s) * 0.58) ease-in-out infinite;
-}
-@keyframes fireflyDrift {
-  0%   { translate: 0px   0px;  }
-  25%  { translate: 7px  -11px; }
-  50%  { translate: -9px  -7px; }
-  75%  { translate: 5px  -15px; }
-  100% { translate: -4px   9px; }
-}
-@keyframes fireflyBlink {
-  0%,100% { opacity:0.1; box-shadow: 0 0 3px 1px rgba(233,196,106,0.25); }
-  50%     { opacity:1;   box-shadow: 0 0 9px 4px rgba(233,196,106,0.9), 0 0 18px 7px rgba(233,196,106,0.45); }
-}
-
-/* Countdown — tarjeta prominente */
+/* Cuenta regresiva — círculos */
 #countdown {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0;
-  margin-top: 0;
-  padding: 2rem 3rem 2.2rem;
-  border-radius: 14px;
-  background: rgba(8,22,15,0.42);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    0 0 80px rgba(45,106,79,0.16),
-    0 0 0 1px rgba(233,196,106,0.08) inset,
-    0 8px 40px rgba(0,0,0,0.28);
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: clamp(0.55rem, 2.4vw, 2.4rem);
+}
+.cd-unit { display: flex; flex-direction: column; align-items: center; gap: clamp(0.5rem, 1.4vh, 0.85rem); }
+.cd-ring {
   position: relative;
-  z-index: 2;
+  width:  clamp(60px, min(11vh, 18vw), 116px);
+  height: clamp(60px, min(11vh, 18vw), 116px);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(233,196,106,0.55); border-radius: 50%;
+  background: rgba(8,24,16,0.25);
+  box-shadow: 0 0 22px rgba(233,196,106,0.12), inset 0 0 18px rgba(233,196,106,0.06);
 }
-/* Halo ambiental detrás del countdown */
-#countdown::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 14px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(233,196,106,0.07) 0%, transparent 65%);
-  pointer-events: none;
+/* Ornamento botánico (enredadera) que envuelve cada círculo */
+.cd-ring-orn {
+  position: absolute; left: 50%; top: 50%;
+  width: 152%; height: 152%;
+  transform: translate(-50%, -50%);
+  overflow: visible; pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(233,196,106,0.25));
 }
-/* En móvil/tablet: el blur de fondo (backdrop-filter) es MUY costoso y se
-   recalcula en cada repintado del scroll → lo quitamos y compensamos con un
-   fondo más opaco. (En PC se mantiene el blur intacto.) */
-@media (hover: none), (pointer: coarse) {
-  #countdown {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(8,22,15,0.82);
-  }
-}
-
-.cd-unit { text-align: center; padding: 0 clamp(0.8rem,2vw,1.8rem); }
-
-.cd-sep {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(1.5rem,2.8vw,2.8rem);
-  color: rgba(233,196,106,0.28);
-  line-height: 1;
-  padding-top: 0.04em;
-  user-select: none;
-}
-
 .cd-num {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(2rem,3.5vw,3.5rem);
-  color: var(--gold); display: block; line-height: 1;
-  text-shadow:
-    0 0 18px rgba(233,196,106,0.65),
-    0 0 45px rgba(233,196,106,0.35),
-    0 0 90px rgba(233,196,106,0.15);
-  animation: cdGlow 3.2s ease-in-out infinite;
+  font-family: 'Cinzel', serif; font-weight: 600;
+  font-size: clamp(1.2rem, min(3.6vh, 5.5vw), 2.4rem);
+  color: var(--gold-light); line-height: 1;
+  text-shadow: 0 0 16px rgba(233,196,106,0.5);
 }
-@keyframes cdGlow {
-  0%,100% {
-    text-shadow:
-      0 0 18px rgba(233,196,106,0.65),
-      0 0 45px rgba(233,196,106,0.35),
-      0 0 90px rgba(233,196,106,0.15);
-  }
-  50% {
-    text-shadow:
-      0 0 26px rgba(233,196,106,0.88),
-      0 0 62px rgba(233,196,106,0.52),
-      0 0 120px rgba(233,196,106,0.22);
-  }
-}
-
 .cd-lbl {
-  font-family: 'Cinzel', serif; font-size: clamp(0.48rem,0.85vw,0.62rem);
-  letter-spacing: 0.42em; color: rgba(233,196,106,0.6);
-  text-transform: uppercase; margin-top: 0.75rem; display: block;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.42rem, min(1vh, 2vw), 0.6rem);
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(233,196,106,0.65);
 }
 
 /* (dress-code movido a su propia escena — ver SCENE 5) */
@@ -644,147 +583,134 @@ body {
 }
 
 /* ══════════════════════════════
-   SCENE 5 — DRESS CODE
+   SCENE 6 — ETIQUETA (DRESS CODE)
 ══════════════════════════════ */
 #scene-dress {
   z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: flex-start;
   overflow: hidden;
 }
-#scene-dress::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 65% 70% at 78% 48%, rgba(27,67,50,0.24) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 55% at 18% 28%, rgba(8,44,26,0.16) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 38% at 50% 92%, rgba(45,106,79,0.14) 0%, transparent 55%);
-  pointer-events: none;
+#dress-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('fondo_vestimenta.webp') center center / cover no-repeat;
+  background-color: #07150e;
+}
+/* Oscurece el lado izquierdo (texto) y deja ver la pareja a la derecha */
+#dress-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to right,
+    rgba(5,15,10,0.85) 0%, rgba(5,15,10,0.62) 34%, rgba(5,15,10,0.12) 56%, transparent 70%);
 }
 
-#dress-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5vw;
-  width: 92%;
-  max-width: 1200px;
-  height: 92vh;
-  position: relative;
-  z-index: 2;
+#dress-content {
+  position: relative; z-index: 2;
+  width: min(560px, 48vw);
+  margin-left: clamp(1.5rem, 7vw, 7rem);
+  text-align: left;
+  display: flex; flex-direction: column; align-items: flex-start;
 }
 
-#dress-copy {
-  flex: 1;
-  max-width: 580px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.dress-tiara {
+  width: clamp(68px, 8vw, 108px); height: auto;
+  filter: drop-shadow(0 0 12px rgba(233,196,106,0.5));
+  margin-bottom: clamp(0.5rem, 1.5vh, 1.1rem);
 }
 
 .dress-eyebrow {
   font-family: 'Cinzel', serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.45em;
-  color: rgba(233,196,106,0.52);
-  text-transform: uppercase;
+  font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+  letter-spacing: 0.5em; text-transform: uppercase;
+  color: rgba(233,196,106,0.7);
+  margin-bottom: clamp(0.4rem, 1.2vh, 0.9rem);
 }
 
 #dress-title {
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: 700;
-  line-height: 0.88;
-  color: var(--gold);
-  text-shadow:
-    0 0 50px rgba(233,196,106,0.4),
-    0 0 100px rgba(233,196,106,0.18);
-  display: flex;
-  flex-direction: column;
+  font-family: 'Cinzel Decorative', serif; font-weight: 700;
+  color: var(--gold); line-height: 0.95;
+  display: flex; flex-direction: column; align-items: flex-start;
 }
 .dress-title-line1 {
-  font-size: clamp(3.8rem, 7.5vw, 7rem);
-  display: block;
+  font-size: clamp(2.6rem, min(9vh, 9vw), 5.4rem);
+  background: linear-gradient(150deg, #ffe9a8, #e9c46a 45%, #c8941c 70%, #ffe083);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 30px rgba(233,196,106,0.3));
 }
 .dress-title-line2 {
-  font-size: clamp(3.2rem, 6.5vw, 6rem);
-  display: block;
-  margin-left: 1.8rem;
+  font-family: 'Cinzel', serif; font-weight: 600;
+  font-size: clamp(0.9rem, min(2.9vh, 3.4vw), 1.6rem);
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold-light);
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-top: 0.45rem;
 }
+.dts-fl { color: rgba(233,196,106,0.55); font-size: 0.75em; }
 
 .dress-divider {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 0.1rem 0;
+  display: flex; align-items: center; gap: 0.8rem;
+  width: min(300px, 70%); margin: clamp(0.8rem, 2vh, 1.4rem) 0;
 }
-.dress-div-line {
-  flex: 1;
-  max-width: 90px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(233,196,106,0.45), transparent);
-}
-.dress-div-gem {
-  color: var(--gold);
-  font-size: 0.6rem;
-  opacity: 0.65;
-}
+.dress-div-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(233,196,106,0.55), transparent); }
+.dress-div-gem { color: var(--gold); font-size: 0.55rem; }
 
 #dress-message {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.05rem, 1.7vw, 1.28rem);
-  line-height: 1.92;
-  color: rgba(248,249,250,0.75);
-  font-style: italic;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(1rem, 1.5vw, 1.3rem); line-height: 1.7;
+  color: rgba(248,249,250,0.82);
+  margin-bottom: clamp(1rem, 2.4vh, 1.8rem);
+  max-width: 30em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
-#dress-message em {
-  color: var(--gold-light);
-  font-style: italic;
-  font-weight: 500;
+
+#dress-rules {
+  list-style: none; padding: 0; margin: 0 0 clamp(1.2rem, 3vh, 2rem);
+  display: flex; flex-direction: column; gap: clamp(0.8rem, 1.8vh, 1.3rem);
+  align-self: stretch;
 }
+.dress-rule { display: flex; align-items: center; gap: 1rem; text-align: left; }
+.dress-rule-ic {
+  flex-shrink: 0;
+  width: clamp(40px, 3.6vw, 52px); height: clamp(40px, 3.6vw, 52px);
+  border: 1px solid rgba(233,196,106,0.5); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(8,24,16,0.3);
+  box-shadow: 0 0 14px rgba(233,196,106,0.12);
+}
+.dress-rule-ic svg { width: 56%; height: auto; }
+.dress-rule-tx {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.58rem, 0.95vw, 0.8rem);
+  letter-spacing: 0.13em; text-transform: uppercase; line-height: 1.65;
+  color: rgba(248,249,250,0.82);
+}
+.dress-rule-tx em { color: var(--gold-light); font-style: normal; }
 
 #dress-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 22px;
-  border: 1px solid rgba(233,196,106,0.28);
-  border-radius: 40px;
-  background: rgba(233,196,106,0.05);
-  width: fit-content;
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 0.7rem 1.9rem;
+  border: 1px solid rgba(233,196,106,0.55); border-radius: 40px;
+  background: rgba(8,24,16,0.4);
+  box-shadow: 0 0 18px rgba(233,196,106,0.12);
 }
-.badge-icon {
-  font-size: 1rem;
-  color: var(--gold);
-}
+.badge-icon { color: var(--gold); font-size: 1rem; }
 .badge-text {
-  font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
+  font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 0.85vw, 0.7rem);
+  letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold);
 }
 
-#dress-couple {
-  flex-shrink: 0;
-  width: clamp(200px, 26vw, 340px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 82vh;
-}
-#dress-couple svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 32px rgba(45,106,79,0.32));
-}
-
+/* Móvil/tablet: texto centrado a todo el ancho, fondo más oscuro para leer */
 @media (max-width: 768px) {
-  #dress-inner { flex-direction: column; gap: 1.8rem; }
-  #dress-couple { width: 55%; height: 38vh; }
-  .dress-title-line1 { font-size: 3.2rem; }
-  .dress-title-line2 { font-size: 2.7rem; }
-  #dress-message { font-size: 1rem; }
+  #scene-dress { justify-content: center; }
+  #dress-overlay {
+    background: linear-gradient(to bottom,
+      rgba(5,15,10,0.62) 0%, rgba(5,15,10,0.55) 50%, rgba(5,15,10,0.82) 100%);
+  }
+  #dress-content {
+    width: min(92vw, 520px); margin-left: 0;
+    align-items: center; text-align: center;
+  }
+  #dress-title { align-items: center; }
+  .dress-divider { margin-left: auto; margin-right: auto; }
+  #dress-message { text-align: center; }
 }
 
 /* ══════════════════════════════
@@ -1876,23 +1802,10 @@ body {
      que también aplica aquí. Solo ajustamos el texto de la cita.) */
   #garden-quote blockquote { font-size: clamp(0.9rem, 2vw, 1.2rem); }
 
-  /* Event container */
-  #event-container { width: min(95vw, 750px); }
-  .big-date { font-size: clamp(1.4rem, 5vw, 3.5rem); }
-  .gold-year { font-size: clamp(0.9rem, 2.5vw, 1.5rem); }
+  /* (La sección de cuenta regresiva ya es responsive por sí sola gracias a
+     los tamaños con clamp(min(vh,vw)); no necesita overrides aquí.) */
 
-  /* Countdown */
-  #countdown { padding: 1.5rem 1.5rem 1.6rem; }
-  .cd-num { font-size: clamp(1.5rem, 4vw, 2.5rem); }
-  .cd-sep { font-size: clamp(1rem, 2.2vw, 2rem); }
-
-  /* Dress code */
-  #dress-inner { flex-direction: column; gap: 1.5rem; height: auto; }
-  #dress-copy { max-width: 100%; padding: 0 1.5rem; }
-  .dress-title-line1 { font-size: clamp(2.5rem, 8vw, 4rem); }
-  .dress-title-line2 { font-size: clamp(2rem, 7vw, 3.5rem); }
-  #dress-message { font-size: clamp(0.95rem, 2vw, 1.1rem); }
-  #dress-couple { width: 65%; height: 35vh; margin: 0 auto; }
+  /* (El dress code/etiqueta ya es responsive en su propio @media, arriba.) */
 
   /* Location scene */
   #scene-location { justify-content: center; padding: 0; }
@@ -1909,170 +1822,113 @@ body {
   .rsvp-subtitle-line { font-size: clamp(1.3rem, 3.5vw, 2.2rem); }
   #rsvp-body { gap: 0.8rem; }
 
-  /* Gifts section */
-  #gifts-inner { flex-direction: column-reverse; gap: 1.5rem; }
-  #gifts-illustration { width: 55%; height: 32vh; }
-  .gifts-title-l1 { font-size: clamp(2rem, 6vw, 3.5rem); }
-  .gifts-title-l2 { font-size: clamp(2.5rem, 7vw, 4rem); margin-left: 0.8rem; }
-  #gifts-message { font-size: clamp(0.95rem, 1.8vw, 1.1rem); }
+  /* (La sección de buenos deseos ya es responsive en su propio @media.) */
 }
 
 
 /* ══════════════════════════════
-   SCENE 7 — MESA DE REGALOS
+   SCENE 7 — TUS BUENOS DESEOS (lluvia de sobres)
 ══════════════════════════════ */
 #scene-gifts {
   z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: flex-end;
   overflow: hidden;
 }
-#scene-gifts::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 55% 65% at 28% 52%, rgba(27,67,50,0.20) 0%, transparent 65%),
-    radial-gradient(ellipse 45% 50% at 78% 30%, rgba(8,44,26,0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 35% at 50% 95%, rgba(45,106,79,0.12) 0%, transparent 55%);
-  pointer-events: none;
+#gifts-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('fondo_lluvia_sobres.webp') center center / cover no-repeat;
+  background-color: #07150e;
+}
+/* Oscurece el lado derecho (texto), deja ver el árbol a la izquierda */
+#gifts-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to left,
+    rgba(5,15,10,0.86) 0%, rgba(5,15,10,0.64) 32%, rgba(5,15,10,0.12) 56%, transparent 70%);
 }
 
-#gifts-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4vw;
-  width: 92%;
-  max-width: 1160px;
-  height: 92vh;
-  position: relative;
-  z-index: 2;
+#gifts-content {
+  position: relative; z-index: 2;
+  width: min(560px, 48vw);
+  margin-right: clamp(1.5rem, 6vw, 6.5rem);
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
 }
 
-#gifts-illustration {
-  flex-shrink: 0;
-  width: clamp(200px, 26vw, 340px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 82vh;
-}
-#gifts-illustration svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 28px rgba(45,106,79,0.28));
-}
-
-#gifts-copy {
-  flex: 1;
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.gifts-lotus {
+  width: clamp(40px, 5vh, 60px); height: auto;
+  filter: drop-shadow(0 0 10px rgba(233,196,106,0.5));
+  margin-bottom: clamp(0.4rem, 1.1vh, 0.8rem);
 }
 
 .gifts-eyebrow {
   font-family: 'Cinzel', serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.45em;
-  color: rgba(233,196,106,0.52);
-  text-transform: uppercase;
+  font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+  letter-spacing: 0.5em; text-transform: uppercase;
+  color: rgba(233,196,106,0.72);
+  margin-bottom: clamp(0.3rem, 1vh, 0.7rem);
 }
 
 #gifts-title {
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: 700;
-  line-height: 0.88;
-  color: var(--gold);
-  text-shadow:
-    0 0 50px rgba(233,196,106,0.4),
-    0 0 100px rgba(233,196,106,0.18);
-  display: flex;
-  flex-direction: column;
+  font-family: 'Cinzel Decorative', serif; font-weight: 700;
+  line-height: 0.98; text-transform: uppercase;
+  display: flex; flex-direction: column; align-items: center;
 }
-.gifts-title-l1 {
-  font-size: clamp(2.8rem, 5.5vw, 5.2rem);
-  display: block;
-}
-.gifts-title-l2 {
-  font-size: clamp(3.6rem, 7vw, 6.5rem);
-  display: block;
-  margin-left: 1.4rem;
+.gifts-title-l1, .gifts-title-l2 {
+  font-size: clamp(2rem, min(7.5vh, 7vw), 4.4rem);
+  background: linear-gradient(150deg, #ffe9a8, #e9c46a 45%, #c8941c 70%, #ffe083);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 30px rgba(233,196,106,0.3));
 }
 
-.gifts-divider {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 0.1rem 0;
+/* Separadores con ornamento central */
+.gifts-div {
+  display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+  width: min(320px, 78%); margin: clamp(0.7rem, 1.8vh, 1.3rem) 0;
 }
-.gifts-div-line {
-  flex: 1;
-  max-width: 90px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(233,196,106,0.45), transparent);
-}
-.gifts-div-gem {
-  color: var(--gold);
-  font-size: 0.6rem;
-  opacity: 0.65;
-}
+.gifts-div-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(233,196,106,0.5), transparent); }
+.gifts-div-orn  { color: rgba(233,196,106,0.8); font-size: 0.7rem; }
+.gifts-div-heart{ color: rgba(233,196,106,0.85); font-size: 0.75rem; }
 
 #gifts-message {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
-  line-height: 1.95;
-  color: rgba(248,249,250,0.72);
-  font-style: italic;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(1rem, 1.5vw, 1.3rem); line-height: 1.75;
+  color: rgba(248,249,250,0.84); max-width: 26em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+#gifts-message em { color: var(--gold-light); font-style: italic; font-weight: 500; }
+
+.gifts-subtitle {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.62rem, 1vw, 0.85rem);
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(233,196,106,0.9);
+  margin-bottom: clamp(0.4rem, 1.1vh, 0.8rem);
+}
+.gifts-sub-star { color: rgba(233,196,106,0.6); font-size: 0.7em; }
+
+.gifts-sub-text {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem); line-height: 1.7;
+  color: rgba(248,249,250,0.78); max-width: 24em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
 }
 
-#gifts-sobres {
-  display: flex;
-  align-items: center;
-  gap: 1.4rem;
-  margin: 0.5rem 0;
-}
-.sobres-line {
-  flex: 1;
-  max-width: 55px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(233,196,106,0.5));
-}
-.sobres-line:last-child {
-  background: linear-gradient(90deg, rgba(233,196,106,0.5), transparent);
-}
-.sobres-text {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(1.8rem, 3.2vw, 3rem);
-  color: var(--gold);
-  line-height: 1.15;
-  text-align: center;
-  text-shadow:
-    0 0 30px rgba(233,196,106,0.55),
-    0 0 70px rgba(233,196,106,0.22);
-  animation: sobresGlow 4s ease-in-out infinite;
-}
-@keyframes sobresGlow {
-  0%,100% { text-shadow: 0 0 30px rgba(233,196,106,0.55), 0 0 70px rgba(233,196,106,0.22); }
-  50%     { text-shadow: 0 0 45px rgba(233,196,106,0.80), 0 0 100px rgba(233,196,106,0.38); }
+.gifts-final {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(0.92rem, 1.35vw, 1.15rem);
+  color: rgba(233,196,106,0.62);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
 }
 
-#gifts-hint {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(0.82rem, 1.2vw, 0.98rem);
-  color: rgba(205,180,219,0.45);
-  letter-spacing: 0.05em;
-}
-
+/* Móvil/tablet: texto a todo el ancho, fondo más oscuro para leer */
 @media (max-width: 768px) {
-  #gifts-inner { flex-direction: column-reverse; gap: 1.5rem; }
-  #gifts-illustration { width: 55%; height: 32vh; }
-  .gifts-title-l1 { font-size: 2.4rem; }
-  .gifts-title-l2 { font-size: 3rem; margin-left: 0.8rem; }
-  #gifts-message { font-size: 1rem; }
-  .sobres-text { font-size: 1.6rem; }
+  #scene-gifts { justify-content: center; }
+  #gifts-overlay {
+    background: linear-gradient(to bottom,
+      rgba(5,15,10,0.66) 0%, rgba(5,15,10,0.6) 50%, rgba(5,15,10,0.84) 100%);
+  }
+  #gifts-content { width: min(92vw, 520px); margin-right: 0; }
 }
 
 /* ══════════════════════════════════════════════════════

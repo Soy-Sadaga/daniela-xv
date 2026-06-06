@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=28">
+  <link rel="stylesheet" href="daniela-xv.css?v=32">
 </head>
 <body>
 
@@ -516,300 +516,77 @@
   </div><!-- /scene-garden -->
 
 
-  <!-- ▓ SCENE 4 — Event Details ▓ -->
+  <!-- ▓ SCENE 4 — Cuenta Regresiva ▓ -->
   <div class="scene" id="scene-event">
-    <div class="ray" style="left:22%;animation-delay:0s;background:linear-gradient(to bottom,rgba(233,196,106,0.05),transparent);"></div>
-    <div class="ray" style="left:50%;animation-delay:0.9s;background:linear-gradient(to bottom,rgba(233,196,106,0.09),transparent);"></div>
-    <div class="ray" style="left:78%;animation-delay:1.6s;background:linear-gradient(to bottom,rgba(233,196,106,0.05),transparent);"></div>
+
+    <!-- Fondo (estanque con rana coronada, lotos y libélulas) -->
+    <div id="cd-bg"></div>
+    <div id="cd-overlay"></div>
 
     <div id="event-container">
+
+      <!-- Ornamento superior: loto dorado -->
+      <svg class="cd-lotus" viewBox="0 0 90 50" aria-hidden="true">
+        <g fill="none" stroke="rgba(233,196,106,0.92)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M45 46 C 41 32 41 18 45 8 C 49 18 49 32 45 46 Z"/>
+          <path d="M45 46 C 36 34 28 26 22 16 C 34 22 42 32 45 46 Z"/>
+          <path d="M45 46 C 54 34 62 26 68 16 C 56 22 48 32 45 46 Z"/>
+          <path d="M45 46 C 30 40 16 36 6 28 C 20 36 36 42 45 46 Z"/>
+          <path d="M45 46 C 60 40 74 36 84 28 C 70 36 54 42 45 46 Z"/>
+        </g>
+        <circle cx="18" cy="9" r="1.3" fill="rgba(233,196,106,0.85)"/>
+        <circle cx="72" cy="9" r="1.3" fill="rgba(233,196,106,0.85)"/>
+      </svg>
+
       <div class="sec-label">El Gran Evento</div>
 
-      <div class="big-date">Sábado, 19 de Septiembre</div>
-      <span class="gold-year">2026</span>
+      <!-- Fecha grande (la rellena el JS desde los datos) -->
+      <div class="cd-date">
+        <span class="cd-day"   id="cd-day">19</span>
+        <span class="cd-month" id="cd-month">Septiembre</span>
+        <span class="cd-year"  id="cd-year">2026</span>
+      </div>
 
-      <div class="cd-intro">✦ &nbsp; Cuenta regresiva &nbsp; ✦</div>
+      <!-- Separador + título -->
+      <div class="cd-divider"><span class="cd-div-line"></span><span class="cd-div-gem">✦</span><span class="cd-div-line"></span></div>
+      <div class="cd-intro">Cuenta Regresiva</div>
 
-      <div id="countdown-wrap">
-
-        <!-- ══ Marco botánico inspirado en La Princesa y el Sapo ══ -->
-        <svg id="cd-botanical" viewBox="0 0 840 220" preserveAspectRatio="none"
-             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <filter id="bot-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="2.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="frog-shine" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="1.8" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-
-          <!-- ════ ESQUINA INFERIOR IZQUIERDA — racimo principal + rana ════ -->
-
-          <!-- Tallo principal (sube desde la esquina) -->
-          <path d="M 4 222 C 8 205, 12 188, 20 172 C 28 156, 44 150, 46 135
-                   C 48 120, 34 107, 40 92 C 46 77, 64 71, 60 55"
-            stroke="rgba(45,106,79,0.78)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-          <!-- Rama lateral (va a la derecha, hacia el borde inferior) -->
-          <path d="M 20 172 C 34 175, 56 182, 72 193 C 84 202, 92 214, 94 222"
-            stroke="rgba(45,106,79,0.65)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-
-          <!-- Rama corta (se curva hacia la izquierda, zona media) -->
-          <path d="M 46 135 C 30 127, 12 121, 4 111"
-            stroke="rgba(45,106,79,0.58)" stroke-width="0.95" fill="none" stroke-linecap="round"/>
-
-          <!-- Zarcillos delgados -->
-          <path d="M 60 55 C 68 44, 78 40, 76 30"
-            stroke="rgba(45,106,79,0.42)" stroke-width="0.7" fill="none" stroke-linecap="round"/>
-          <path d="M 94 222 C 103 217, 110 210, 118 213"
-            stroke="rgba(45,106,79,0.38)" stroke-width="0.65" fill="none" stroke-linecap="round"/>
-
-          <!-- Hoja A (grande, apunta a la derecha, y≈150) -->
-          <path d="M 38 145 C 58 134, 82 136, 86 147 C 82 158, 58 162, 38 145 Z"
-            fill="rgba(45,106,79,0.52)" stroke="rgba(45,106,79,0.8)" stroke-width="0.6"/>
-          <path d="M 38 145 C 58 143, 80 145, 86 147"
-            stroke="rgba(27,67,50,0.4)" stroke-width="0.45" fill="none"/>
-
-          <!-- Hoja B (apunta izquierda/arriba, y≈112) -->
-          <path d="M 42 105 C 25 96, 7 92, 0 81 C 7 92, 25 100, 42 105 Z"
-            fill="rgba(45,106,79,0.48)" stroke="rgba(45,106,79,0.72)" stroke-width="0.55"/>
-
-          <!-- Hoja C (rama lateral, pequeña) -->
-          <path d="M 64 186 C 60 173, 66 163, 78 159 C 66 163, 60 176, 64 186 Z"
-            fill="rgba(45,106,79,0.44)" stroke="rgba(45,106,79,0.66)" stroke-width="0.5"/>
-
-          <!-- Hoja D (zona superior del tallo) -->
-          <path d="M 54 68 C 72 59, 94 62, 98 71 C 94 80, 72 83, 54 68 Z"
-            fill="rgba(45,106,79,0.46)" stroke="rgba(45,106,79,0.7)" stroke-width="0.5"/>
-
-          <!-- Flor dorada en la punta del tallo izquierdo -->
-          <g transform="translate(60,53)" filter="url(#bot-glow)">
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(216)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(288)"/>
-            <circle r="3.5" fill="rgba(233,196,106,0.96)"/>
-          </g>
-
-          <!-- Bayas doradas en la rama lateral -->
-          <circle cx="52" cy="191" r="2.4" fill="rgba(233,196,106,0.62)"/>
-          <circle cx="57" cy="198" r="1.9" fill="rgba(233,196,106,0.52)"/>
-          <circle cx="46" cy="197" r="1.6" fill="rgba(233,196,106,0.42)"/>
-
-          <!-- 🐸 RANA CON CORONA — referencia a La Princesa y el Sapo -->
-          <g transform="translate(122, 200)" filter="url(#frog-shine)">
-            <!-- Nenúfar -->
-            <ellipse cx="-5" cy="15" rx="22" ry="6.5" fill="rgba(27,67,50,0.58)" stroke="rgba(45,106,79,0.45)" stroke-width="0.7"/>
-            <path d="M -5 8.5 L -5 15" stroke="rgba(8,22,15,0.25)" stroke-width="0.6"/>
-            <!-- Pata trasera izquierda -->
-            <path d="M -16 6 C -22 10, -26 16, -24 19"
-              stroke="rgba(52,128,82,0.92)" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-            <!-- Pata trasera derecha -->
-            <path d="M 6 6 C 12 10, 16 16, 14 19"
-              stroke="rgba(52,128,82,0.92)" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-            <!-- Cuerpo -->
-            <ellipse cx="-5" cy="4" rx="13" ry="9" fill="rgba(52,128,82,0.9)"/>
-            <!-- Cabeza -->
-            <ellipse cx="7" cy="-2" rx="10" ry="8" fill="rgba(52,128,82,0.92)"/>
-            <!-- Pata delantera (apoyada) -->
-            <path d="M 14 3 C 19 1, 22 -2, 24 2"
-              stroke="rgba(52,128,82,0.9)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-            <!-- Sonrisa (es el príncipe en forma de rana!) -->
-            <path d="M 3 4 C 7 7, 12 7, 15 4"
-              stroke="rgba(8,22,15,0.48)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-            <!-- Ojo grande e icónico -->
-            <circle cx="12" cy="-5" r="5" fill="rgba(8,22,15,0.85)"/>
-            <circle cx="12" cy="-5" r="3.5" fill="rgba(233,196,106,0.88)"/>
-            <circle cx="12" cy="-5" r="2" fill="rgba(8,22,15,0.92)"/>
-            <circle cx="13.2" cy="-6.2" r="0.9" fill="white"/>
-            <!-- 👑 Coronita dorada -->
-            <path d="M 5 -11 L 7.5 -16 L 10 -12.5 L 12.5 -17 L 15 -13 L 17.5 -11 L 5 -11 Z"
-              fill="rgba(233,196,106,0.92)" stroke="rgba(233,196,106,0.6)" stroke-width="0.4"/>
-            <circle cx="10" cy="-11" r="1" fill="rgba(233,196,106,1)"/>
-            <circle cx="6" cy="-11" r="0.7" fill="rgba(233,196,106,0.9)"/>
-            <circle cx="14" cy="-11" r="0.7" fill="rgba(233,196,106,0.9)"/>
-          </g>
-
-
-          <!-- ════ ESQUINA INFERIOR DERECHA (espejo) ════ -->
-
-          <!-- Tallo principal derecho -->
-          <path d="M 836 222 C 832 205, 828 188, 820 172 C 812 156, 796 150, 794 135
-                   C 792 120, 806 107, 800 92 C 794 77, 776 71, 780 55"
-            stroke="rgba(45,106,79,0.78)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-          <!-- Rama lateral derecha -->
-          <path d="M 820 172 C 806 175, 784 182, 768 193 C 756 202, 748 214, 746 222"
-            stroke="rgba(45,106,79,0.65)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-
-          <!-- Rama corta derecha -->
-          <path d="M 794 135 C 810 127, 828 121, 836 111"
-            stroke="rgba(45,106,79,0.58)" stroke-width="0.95" fill="none" stroke-linecap="round"/>
-
-          <!-- Zarcillo derecho -->
-          <path d="M 780 55 C 772 44, 762 40, 764 30"
-            stroke="rgba(45,106,79,0.42)" stroke-width="0.7" fill="none" stroke-linecap="round"/>
-
-          <!-- Hojas derechas (espejos) -->
-          <path d="M 802 145 C 782 134, 758 136, 754 147 C 758 158, 782 162, 802 145 Z"
-            fill="rgba(45,106,79,0.52)" stroke="rgba(45,106,79,0.8)" stroke-width="0.6"/>
-          <path d="M 802 145 C 782 143, 760 145, 754 147"
-            stroke="rgba(27,67,50,0.4)" stroke-width="0.45" fill="none"/>
-
-          <path d="M 798 105 C 815 96, 833 92, 840 81 C 833 92, 815 100, 798 105 Z"
-            fill="rgba(45,106,79,0.48)" stroke="rgba(45,106,79,0.72)" stroke-width="0.55"/>
-
-          <path d="M 776 186 C 780 173, 774 163, 762 159 C 774 163, 780 176, 776 186 Z"
-            fill="rgba(45,106,79,0.44)" stroke="rgba(45,106,79,0.66)" stroke-width="0.5"/>
-
-          <path d="M 786 68 C 768 59, 746 62, 742 71 C 746 80, 768 83, 786 68 Z"
-            fill="rgba(45,106,79,0.46)" stroke="rgba(45,106,79,0.7)" stroke-width="0.5"/>
-
-          <!-- Flor dorada en tallo derecho -->
-          <g transform="translate(780,53)" filter="url(#bot-glow)">
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(216)"/>
-            <ellipse cx="0" cy="-7" rx="2.8" ry="5.2" fill="rgba(233,196,106,0.68)" transform="rotate(288)"/>
-            <circle r="3.5" fill="rgba(233,196,106,0.96)"/>
-          </g>
-
-          <!-- Bayas doradas derechas -->
-          <circle cx="788" cy="191" r="2.4" fill="rgba(233,196,106,0.62)"/>
-          <circle cx="783" cy="198" r="1.9" fill="rgba(233,196,106,0.52)"/>
-          <circle cx="794" cy="197" r="1.6" fill="rgba(233,196,106,0.42)"/>
-
-
-          <!-- ════ ZARCILLOS SUPERIORES ════ -->
-
-          <!-- Superior izquierdo -->
-          <path d="M 0 6 C 18 3, 36 7, 48 18 C 60 29, 64 46, 76 53"
-            stroke="rgba(45,106,79,0.48)" stroke-width="0.95" fill="none" stroke-linecap="round"/>
-          <path d="M 48 18 C 44 7, 40 1, 50 0"
-            stroke="rgba(45,106,79,0.32)" stroke-width="0.62" fill="none" stroke-linecap="round"/>
-          <!-- Hojas tendril superior izquierdo -->
-          <path d="M 34 12 C 28 4, 20 0, 12 3 C 20 0, 28 7, 34 12 Z"
-            fill="rgba(45,106,79,0.35)" stroke="rgba(45,106,79,0.58)" stroke-width="0.5"/>
-          <path d="M 58 44 C 68 37, 80 37, 84 44 C 80 51, 68 52, 58 44 Z"
-            fill="rgba(45,106,79,0.35)" stroke="rgba(45,106,79,0.58)" stroke-width="0.5"/>
-
-          <!-- Superior derecho -->
-          <path d="M 840 6 C 822 3, 804 7, 792 18 C 780 29, 776 46, 764 53"
-            stroke="rgba(45,106,79,0.48)" stroke-width="0.95" fill="none" stroke-linecap="round"/>
-          <path d="M 792 18 C 796 7, 800 1, 790 0"
-            stroke="rgba(45,106,79,0.32)" stroke-width="0.62" fill="none" stroke-linecap="round"/>
-          <!-- Hojas tendril superior derecho -->
-          <path d="M 806 12 C 812 4, 820 0, 828 3 C 820 0, 812 7, 806 12 Z"
-            fill="rgba(45,106,79,0.35)" stroke="rgba(45,106,79,0.58)" stroke-width="0.5"/>
-          <path d="M 782 44 C 772 37, 760 37, 756 44 C 760 51, 772 52, 782 44 Z"
-            fill="rgba(45,106,79,0.35)" stroke="rgba(45,106,79,0.58)" stroke-width="0.5"/>
-
-
-          <!-- ════ LIBÉLULA (parte superior, centro) ════ -->
-          <g transform="translate(420, 24)" filter="url(#bot-glow)">
-            <!-- Alas traseras -->
-            <ellipse cx="-3" cy="4" rx="22" ry="7" fill="rgba(45,106,79,0.1)"
-              stroke="rgba(45,106,79,0.58)" stroke-width="0.75" transform="rotate(-14 -3 4)"/>
-            <ellipse cx="3" cy="4" rx="22" ry="7" fill="rgba(45,106,79,0.1)"
-              stroke="rgba(45,106,79,0.58)" stroke-width="0.75" transform="rotate(14 3 4)"/>
-            <!-- Alas delanteras (ligeramente más pequeñas) -->
-            <ellipse cx="-2" cy="10" rx="17" ry="5.5" fill="rgba(45,106,79,0.08)"
-              stroke="rgba(45,106,79,0.46)" stroke-width="0.62" transform="rotate(-10 -2 10)"/>
-            <ellipse cx="2" cy="10" rx="17" ry="5.5" fill="rgba(45,106,79,0.08)"
-              stroke="rgba(45,106,79,0.46)" stroke-width="0.62" transform="rotate(10 2 10)"/>
-            <!-- Cuerpo segmentado -->
-            <ellipse cx="0" cy="9" rx="2.6" ry="11" fill="rgba(45,106,79,0.76)"/>
-            <ellipse cx="0" cy="23" rx="2" ry="7.5" fill="rgba(27,67,50,0.65)"/>
-            <!-- Cabeza -->
-            <circle cx="0" cy="-2" r="3.8" fill="rgba(45,106,79,0.88)"/>
-            <!-- Ojos compuestos (dorados) -->
-            <circle cx="-2.8" cy="-2.8" r="2.2" fill="rgba(233,196,106,0.68)"/>
-            <circle cx="2.8" cy="-2.8" r="2.2" fill="rgba(233,196,106,0.68)"/>
-          </g>
-
-
-          <!-- ════ NENÚFAR CON FLOR (parte inferior, centro) ════ -->
-          <g transform="translate(420, 207)">
-            <!-- Nenúfar -->
-            <ellipse cx="0" cy="0" rx="28" ry="9" fill="rgba(27,67,50,0.62)"
-              stroke="rgba(45,106,79,0.58)" stroke-width="0.7"/>
-            <path d="M 0 -9 L 0 0" stroke="rgba(8,22,15,0.22)" stroke-width="0.8"/>
-            <!-- Flor de loto/nenúfar -->
-            <g transform="translate(0,-14)">
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(0)"/>
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(60)"/>
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(120)"/>
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(180)"/>
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(240)"/>
-              <ellipse cx="0" cy="-8" rx="5" ry="9" fill="rgba(248,249,250,0.62)" transform="rotate(300)"/>
-              <circle r="5.5" fill="rgba(233,196,106,0.82)"/>
-              <circle r="3.5" fill="rgba(233,196,106,1)"/>
+      <!-- Ornamento botánico reutilizable para los círculos de la cuenta regresiva -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <g id="cd-vine">
+            <!-- ramas que arquean sobre la parte superior del círculo -->
+            <g fill="none" stroke="rgba(233,196,106,0.72)" stroke-width="1.1" stroke-linecap="round">
+              <path d="M37 53 C 33 40 45 29 70 26"/>
+              <path d="M103 53 C 107 40 95 29 70 26"/>
             </g>
+            <!-- hojas (verde translúcido con borde dorado) -->
+            <g fill="rgba(45,106,79,0.55)" stroke="rgba(233,196,106,0.6)" stroke-width="0.7">
+              <path d="M45 45 C 36 41 30 44 27 50 C 35 51 41 50 45 45 Z"/>
+              <path d="M53 35 C 47 29 39 29 35 34 C 42 37 49 38 53 35 Z"/>
+              <path d="M95 45 C 104 41 110 44 113 50 C 105 51 99 50 95 45 Z"/>
+              <path d="M87 35 C 93 29 101 29 105 34 C 98 37 91 38 87 35 Z"/>
+            </g>
+            <!-- gema superior con halo -->
+            <circle cx="70" cy="24.5" r="2.6" fill="rgba(233,196,106,0.96)"/>
+            <circle cx="70" cy="24.5" r="5" fill="none" stroke="rgba(233,196,106,0.45)" stroke-width="0.6"/>
+            <!-- pequeño brote inferior -->
+            <g fill="rgba(45,106,79,0.5)" stroke="rgba(233,196,106,0.55)" stroke-width="0.7">
+              <path d="M64 113 C 60 117 60 123 64 126 C 67 122 67 117 64 113 Z"/>
+              <path d="M76 113 C 80 117 80 123 76 126 C 73 122 73 117 76 113 Z"/>
+            </g>
+            <circle cx="70" cy="115" r="1.8" fill="rgba(233,196,106,0.82)"/>
           </g>
+        </defs>
+      </svg>
 
-
-          <!-- ════ DETALLES DISPERSOS ════ -->
-
-          <!-- Hoja pequeña lateral izquierda (zona media) -->
-          <path d="M 2 112 C 12 106, 24 107, 26 114 C 24 121, 12 123, 2 112 Z"
-            fill="rgba(45,106,79,0.28)" stroke="rgba(45,106,79,0.48)" stroke-width="0.5"/>
-
-          <!-- Hoja pequeña lateral derecha -->
-          <path d="M 838 112 C 828 106, 816 107, 814 114 C 816 121, 828 123, 838 112 Z"
-            fill="rgba(45,106,79,0.28)" stroke="rgba(45,106,79,0.48)" stroke-width="0.5"/>
-
-          <!-- Mariposa delicada (zona superior derecha) -->
-          <g transform="translate(700, 32)">
-            <path d="M 0 0 C -9 -9, -20 -7, -18 2 C -16 11, -5 11, 0 0 Z"
-              fill="rgba(45,106,79,0.22)" stroke="rgba(45,106,79,0.5)" stroke-width="0.5"/>
-            <path d="M 0 0 C 9 -9, 20 -7, 18 2 C 16 11, 5 11, 0 0 Z"
-              fill="rgba(45,106,79,0.22)" stroke="rgba(45,106,79,0.5)" stroke-width="0.5"/>
-            <path d="M 0 0 C -7 5, -13 10, -9 16 C -5 20, 0 15, 0 0 Z"
-              fill="rgba(45,106,79,0.18)" stroke="rgba(45,106,79,0.4)" stroke-width="0.42"/>
-            <path d="M 0 0 C 7 5, 13 10, 9 16 C 5 20, 0 15, 0 0 Z"
-              fill="rgba(45,106,79,0.18)" stroke="rgba(45,106,79,0.4)" stroke-width="0.42"/>
-            <ellipse cx="0" cy="7" rx="1.3" ry="8" fill="rgba(45,106,79,0.7)"/>
-          </g>
-
-          <!-- Puntos dorados decorativos -->
-          <circle cx="140" cy="148" r="1.6" fill="rgba(233,196,106,0.32)"/>
-          <circle cx="178" cy="122" r="1.1" fill="rgba(233,196,106,0.28)"/>
-          <circle cx="700" cy="148" r="1.6" fill="rgba(233,196,106,0.32)"/>
-          <circle cx="662" cy="122" r="1.1" fill="rgba(233,196,106,0.28)"/>
-          <circle cx="300" cy="210" r="1.2" fill="rgba(233,196,106,0.25)"/>
-          <circle cx="540" cy="210" r="1.2" fill="rgba(233,196,106,0.25)"/>
-          <circle cx="220" cy="18" r="1.0" fill="rgba(233,196,106,0.22)"/>
-          <circle cx="620" cy="18" r="1.0" fill="rgba(233,196,106,0.22)"/>
-        </svg>
-
-        <!-- ✦ Luciérnagas animadas ✦ -->
-        <span class="firefly" style="--fx:9%;  --fy:22%; --fd:3.2s"></span>
-        <span class="firefly" style="--fx:91%; --fy:18%; --fd:4.8s"></span>
-        <span class="firefly" style="--fx:14%; --fy:80%; --fd:5.4s"></span>
-        <span class="firefly" style="--fx:86%; --fy:76%; --fd:3.7s"></span>
-        <span class="firefly" style="--fx:50%; --fy:10%; --fd:6.2s"></span>
-        <span class="firefly" style="--fx:48%; --fy:92%; --fd:2.9s"></span>
-        <span class="firefly" style="--fx:30%; --fy:48%; --fd:4.3s"></span>
-        <span class="firefly" style="--fx:72%; --fy:42%; --fd:5.8s"></span>
-        <span class="firefly" style="--fx:22%; --fy:58%; --fd:3.5s"></span>
-        <span class="firefly" style="--fx:78%; --fy:62%; --fd:4.6s"></span>
-
-        <div id="countdown">
-          <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Días</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Horas</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Minutos</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Segundos</span></div>
-        </div>
-
-      </div><!-- /countdown-wrap -->
+      <!-- Cuenta regresiva — círculos (los ids cd-d/h/m/s los usa el JS) -->
+      <div id="countdown">
+        <div class="cd-unit"><div class="cd-ring"><svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg><span class="cd-num" id="cd-d">00</span></div><span class="cd-lbl">Días</span></div>
+        <div class="cd-unit"><div class="cd-ring"><svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg><span class="cd-num" id="cd-h">00</span></div><span class="cd-lbl">Horas</span></div>
+        <div class="cd-unit"><div class="cd-ring"><svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg><span class="cd-num" id="cd-m">00</span></div><span class="cd-lbl">Minutos</span></div>
+        <div class="cd-unit"><div class="cd-ring"><svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg><span class="cd-num" id="cd-s">00</span></div><span class="cd-lbl">Segundos</span></div>
+      </div>
 
     </div>
   </div><!-- /scene-event -->
@@ -866,431 +643,115 @@
   </div><!-- /scene-location -->
 
 
-  <!-- ▓ SCENE 6 — Dress Code ▓ -->
+  <!-- ▓ SCENE 6 — Etiqueta (Dress Code) ▓ -->
   <div class="scene" id="scene-dress">
 
-    <div id="dress-inner">
+    <!-- Fondo (pareja, lotos, libélulas) -->
+    <div id="dress-bg"></div>
+    <div id="dress-overlay"></div>
 
-      <!-- Columna izquierda: texto -->
-      <div id="dress-copy">
-        <div class="dress-eyebrow">✦ &nbsp; Código de Vestimenta &nbsp; ✦</div>
+    <div id="dress-content">
 
-        <h2 id="dress-title">
-          <span class="dress-title-line1">Dress</span>
-          <span class="dress-title-line2">Code</span>
-        </h2>
+      <!-- Tiara (corona elegante con arcos curvos y gema central) -->
+      <svg class="dress-tiara" viewBox="0 0 120 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="tiara-g" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe9a8"/>
+            <stop offset="0.55" stop-color="#e9c46a"/>
+            <stop offset="1" stop-color="#c8941c"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="url(#tiara-g)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- contorno de la corona: 3 arcos suaves -->
+          <path d="M15 50 C 19 30 27 23 32 23 C 37 23 43 35 47 41 C 51 30 56 15 60 13 C 64 15 69 30 73 41 C 77 35 83 23 88 23 C 93 23 101 30 105 50"/>
+          <!-- banda inferior -->
+          <path d="M15 50 Q 60 58 105 50"/>
+        </g>
+        <!-- gemas en las puntas -->
+        <circle cx="60" cy="11" r="3.4" fill="url(#tiara-g)"/>
+        <circle cx="32" cy="21" r="2.6" fill="url(#tiara-g)"/>
+        <circle cx="88" cy="21" r="2.6" fill="url(#tiara-g)"/>
+        <!-- gemas en la banda -->
+        <circle cx="47" cy="46" r="1.7" fill="url(#tiara-g)"/>
+        <circle cx="73" cy="46" r="1.7" fill="url(#tiara-g)"/>
+        <circle cx="60" cy="53" r="2"   fill="url(#tiara-g)"/>
+      </svg>
 
-        <div class="dress-divider">
-          <span class="dress-div-line"></span>
-          <span class="dress-div-gem">◆</span>
-          <span class="dress-div-line"></span>
-        </div>
+      <div class="dress-eyebrow">Código de Vestimenta</div>
 
-        <p id="dress-message">
-          Esta celebración fue imaginada como un reino encantado donde
-          cada detalle tiene su propia magia. Por ello, agradecemos asistir
-          con vestimenta <em>formal</em> y permitir que los
-          <em>tonos verdes y dorados</em> pertenezcan exclusivamente
-          a la quinceañera.
-        </p>
+      <h2 id="dress-title">
+        <span class="dress-title-line1">Etiqueta</span>
+        <span class="dress-title-line2"><span class="dts-fl">&#10087;</span> Del Baile Real <span class="dts-fl">&#10087;</span></span>
+      </h2>
 
-        <div id="dress-badge">
-          <span class="badge-icon">♛</span>
-          <span class="badge-text">Etiqueta Formal</span>
-        </div>
+      <div class="dress-divider">
+        <span class="dress-div-line"></span>
+        <span class="dress-div-gem">&#9670;</span>
+        <span class="dress-div-line"></span>
       </div>
 
-      <!-- Columna derecha: silueta de pareja -->
-      <div id="dress-couple">
-        <svg viewBox="0 0 320 560" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="dc-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="dc-halo" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="18"/>
-            </filter>
-            <radialGradient id="dc-bg" cx="50%" cy="55%" r="50%">
-              <stop offset="0%" stop-color="#1B4332" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#081C15" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
+      <p id="dress-message">
+        Esta celebración fue imaginada como un reino encantado
+        donde cada detalle tiene su propia magia.
+      </p>
 
-          <!-- ── Fondo ambiental ── -->
-          <ellipse cx="165" cy="320" rx="155" ry="250" fill="url(#dc-bg)"/>
-          <ellipse cx="210" cy="295" rx="68" ry="185" fill="rgba(45,106,79,0.09)" filter="url(#dc-halo)"/>
-          <ellipse cx="100" cy="295" rx="52" ry="165" fill="rgba(27,67,50,0.07)" filter="url(#dc-halo)"/>
+      <ul id="dress-rules">
+        <li class="dress-rule">
+          <span class="dress-rule-ic">
+            <svg viewBox="0 0 40 24" aria-hidden="true"><g fill="rgba(233,196,106,0.95)"><path d="M3 4 L18 12 L3 20 Z"/><path d="M37 4 L22 12 L37 20 Z"/><rect x="16.5" y="7.5" width="7" height="9" rx="2"/></g></svg>
+          </span>
+          <span class="dress-rule-tx">Asistir con vestimenta <em>formal</em></span>
+        </li>
+        <li class="dress-rule">
+          <span class="dress-rule-ic">
+            <svg viewBox="0 0 90 52" aria-hidden="true"><g fill="none" stroke="rgba(233,196,106,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M45 46 C 41 32 41 18 45 8 C 49 18 49 32 45 46 Z"/><path d="M45 46 C 36 34 28 26 22 16 C 34 22 42 32 45 46 Z"/><path d="M45 46 C 54 34 62 26 68 16 C 56 22 48 32 45 46 Z"/><path d="M45 46 C 30 40 16 36 6 28 C 20 36 36 42 45 46 Z"/><path d="M45 46 C 60 40 74 36 84 28 C 70 36 54 42 45 46 Z"/></g></svg>
+          </span>
+          <span class="dress-rule-tx">Evitar tonos <em>verde esmeralda</em> y <em>dorados</em>, reservados para la quinceañera.</span>
+        </li>
+      </ul>
 
-          <!-- ══════════════════════
-               MUJER — ilustración de moda
-          ══════════════════════ -->
-
-          <!-- Cabeza — proporción élite (1/9 de altura) -->
-          <circle cx="210" cy="68" r="27" fill="rgba(6,18,10,0.95)" stroke="#E9C46A" stroke-width="1.4"/>
-
-          <!-- Cabello recogido con chignon elegante -->
-          <path d="M184,72 C182,50 188,36 210,34 C232,36 238,50 236,72"
-                fill="rgba(7,21,11,0.97)" stroke="none"/>
-          <circle cx="210" cy="40" r="12" fill="rgba(7,21,11,0.97)" stroke="#E9C46A" stroke-width="1.1"/>
-          <path d="M199,36 C202,27 218,27 221,36" stroke="#E9C46A" stroke-width="0.8" fill="none"/>
-          <!-- Pasador/ornamento -->
-          <line x1="210" y1="29" x2="210" y2="20" stroke="#E9C46A" stroke-width="1"/>
-          <circle cx="210" cy="19" r="3" fill="#FFD166" opacity="0.9" filter="url(#dc-glow)"/>
-          <!-- Mechones laterales -->
-          <path d="M184,72 C181,63 183,54 186,56" stroke="#E9C46A" stroke-width="0.7" fill="none" opacity="0.5"/>
-          <path d="M236,72 C239,63 237,54 234,56" stroke="#E9C46A" stroke-width="0.7" fill="none" opacity="0.5"/>
-
-          <!-- Cuello esbelto -->
-          <path d="M203,94 C201,95 201,112 203,118 L217,118 C219,112 219,95 217,94Z"
-                fill="rgba(6,18,10,0.95)" stroke="#E9C46A" stroke-width="0.9"/>
-
-          <!-- Clavícula y línea de hombros -->
-          <path d="M178,122 C192,114 210,112 228,116 C238,118 244,124 248,128"
-                stroke="#E9C46A" stroke-width="0.9" fill="none" opacity="0.65"/>
-
-          <!-- Escote off-shoulder -->
-          <path d="M178,122 C190,116 200,115 210,115 C220,115 230,116 242,122"
-                stroke="#E9C46A" stroke-width="1.2" fill="none"/>
-
-          <!-- Mangas cortas estructuradas -->
-          <path d="M178,122 C171,132 167,143 169,153 C173,160 180,155 182,148 C180,138 181,128 181,122Z"
-                fill="rgba(5,16,9,0.95)" stroke="#E9C46A" stroke-width="1.1"/>
-          <path d="M242,122 C249,132 253,143 251,153 C247,160 240,155 238,148 C240,138 239,128 239,122Z"
-                fill="rgba(5,16,9,0.95)" stroke="#E9C46A" stroke-width="1.1"/>
-
-          <!-- Corpiño ajustado con costuras -->
-          <path d="M178,122 C175,158 175,184 181,216
-                   C191,224 210,228 229,222
-                   C235,190 235,158 242,122
-                   C232,116 220,115 210,115
-                   C200,115 188,116 178,122Z"
-                fill="rgba(5,16,9,0.95)" stroke="#E9C46A" stroke-width="1.2"/>
-          <!-- Costura central -->
-          <path d="M210,117 C210,162 210,195 210,224" stroke="rgba(233,196,106,0.18)" stroke-width="0.7"/>
-          <!-- Detalles bordados -->
-          <path d="M183,152 C196,158 224,158 237,152" stroke="rgba(233,196,106,0.17)" stroke-width="0.6"/>
-          <path d="M182,179 C196,186 224,186 238,179" stroke="rgba(233,196,106,0.14)" stroke-width="0.6"/>
-          <!-- Pedrería corpiño -->
-          <circle cx="210" cy="138" r="2.2" fill="#E9C46A" opacity="0.65" filter="url(#dc-glow)"/>
-          <circle cx="200" cy="152" r="1.5" fill="#FFD166" opacity="0.45"/>
-          <circle cx="220" cy="152" r="1.5" fill="#FFD166" opacity="0.45"/>
-          <circle cx="210" cy="166" r="1.5" fill="#E9C46A" opacity="0.38"/>
-
-          <!-- Cintura marcada -->
-          <path d="M181,216 C193,228 210,232 229,224" stroke="#E9C46A" stroke-width="1.2"/>
-
-          <!-- Falda de gala — amplia y majestuosa -->
-          <path d="M181,216
-                   C170,248 155,305 135,375
-                   C120,432 106,488 100,558
-                   L320,558
-                   C314,488 300,432 285,375
-                   C265,305 250,248 239,224
-                   C225,230 210,234 195,228
-                   C188,224 181,216 181,216Z"
-                fill="rgba(5,14,8,0.92)" stroke="#E9C46A" stroke-width="1.4"/>
-
-          <!-- Capas interiores de la falda sugeridas -->
-          <path d="M197,232 C188,275 174,335 158,415 C148,462 136,510 130,555"
-                stroke="rgba(233,196,106,0.11)" stroke-width="0.8" fill="none"/>
-          <path d="M223,230 C232,275 246,335 262,415 C272,462 284,510 290,555"
-                stroke="rgba(233,196,106,0.11)" stroke-width="0.8" fill="none"/>
-
-          <!-- Pliegues verticales elegantes -->
-          <path d="M210,234 C205,315 202,412 200,540" stroke="rgba(233,196,106,0.22)" stroke-width="0.9"/>
-          <path d="M196,230 C186,318 175,425 164,545" stroke="rgba(233,196,106,0.16)" stroke-width="0.8"/>
-          <path d="M224,232 C234,318 245,425 256,545" stroke="rgba(233,196,106,0.16)" stroke-width="0.8"/>
-          <path d="M185,224 C172,318 156,432 144,548" stroke="rgba(233,196,106,0.1)"  stroke-width="0.7"/>
-          <path d="M235,226 C248,318 264,432 276,548" stroke="rgba(233,196,106,0.1)"  stroke-width="0.7"/>
-
-          <!-- Dobladillo con detalle doble -->
-          <path d="M102,550 C168,563 252,565 318,550" stroke="rgba(233,196,106,0.35)" stroke-width="0.9"/>
-          <path d="M104,554 C168,567 252,569 316,554" stroke="rgba(233,196,106,0.18)" stroke-width="0.5"/>
-
-          <!-- Pedrería dispersa en la falda -->
-          <circle cx="200" cy="308" r="2.4" fill="#E9C46A" opacity="0.72" filter="url(#dc-glow)"/>
-          <circle cx="222" cy="362" r="1.8" fill="#FFD166" opacity="0.58" filter="url(#dc-glow)"/>
-          <circle cx="186" cy="408" r="1.5" fill="#E9C46A" opacity="0.44"/>
-          <circle cx="232" cy="428" r="1.2" fill="#FFD166" opacity="0.42"/>
-          <circle cx="212" cy="464" r="1.2" fill="#E9C46A" opacity="0.35"/>
-          <circle cx="175" cy="478" r="1"   fill="#E9C46A" opacity="0.28"/>
-          <circle cx="246" cy="494" r="1"   fill="#E9C46A" opacity="0.25"/>
-          <circle cx="198" cy="512" r="1"   fill="#FFD166" opacity="0.22"/>
-
-          <!-- ══════════════════════
-               HOMBRE — traje de etiqueta
-          ══════════════════════ -->
-
-          <!-- Cabeza -->
-          <circle cx="100" cy="76" r="24" fill="rgba(6,18,10,0.95)" stroke="#E9C46A" stroke-width="1.3"/>
-
-          <!-- Cabello peinado hacia atrás -->
-          <path d="M77,76 C76,56 82,43 100,41 C118,43 124,56 123,76" fill="rgba(7,21,11,0.97)"/>
-          <path d="M83,58 C90,49 100,47 114,51" stroke="#E9C46A" stroke-width="0.6" fill="none" opacity="0.45"/>
-
-          <!-- Orejas -->
-          <path d="M77,78 C74,74 74,82 77,80" stroke="#E9C46A" stroke-width="0.7" fill="none" opacity="0.45"/>
-          <path d="M123,78 C126,74 126,82 123,80" stroke="#E9C46A" stroke-width="0.7" fill="none" opacity="0.45"/>
-
-          <!-- Cuello -->
-          <path d="M94,99 L94,118 L106,118 L106,99Z" fill="rgba(6,18,10,0.95)" stroke="#E9C46A" stroke-width="0.9"/>
-
-          <!-- Cuello de camisa con puntas -->
-          <path d="M90,118 L85,108 L94,118" stroke="#E9C46A" stroke-width="0.9" fill="rgba(7,20,12,0.9)"/>
-          <path d="M110,118 L115,108 L106,118" stroke="#E9C46A" stroke-width="0.9" fill="rgba(7,20,12,0.9)"/>
-
-          <!-- Corbatín de moño / bow tie -->
-          <path d="M90,118 C88,122 90,128 94,126 L100,122 L106,126 C110,128 112,122 110,118 L100,124Z"
-                fill="rgba(16,40,22,0.95)" stroke="#FFD166" stroke-width="1.1"/>
-          <circle cx="100" cy="122" r="2.8" fill="#FFD166" opacity="0.9" filter="url(#dc-glow)"/>
-
-          <!-- Saco — silueta cuidada con curvas naturales -->
-          <!-- Cuerpo principal del saco -->
-          <path d="M78,124
-                   C72,138 67,160 65,182
-                   C63,210 65,255 68,308
-                   L132,308
-                   C135,255 137,210 135,182
-                   C133,160 128,138 122,124
-                   L110,118
-                   C107,132 104,140 100,142
-                   C96,140 93,132 90,118Z"
-                fill="rgba(5,14,8,0.93)" stroke="#E9C46A" stroke-width="1.2"/>
-
-          <!-- Solapas del saco (muesca en pico) -->
-          <!-- Solapa izquierda -->
-          <path d="M90,118 C87,128 84,140 86,148 C89,152 94,150 96,145 L100,142"
-                fill="rgba(5,14,8,0.93)" stroke="#E9C46A" stroke-width="0.9"/>
-          <!-- Solapa derecha -->
-          <path d="M110,118 C113,128 116,140 114,148 C111,152 106,150 104,145 L100,142"
-                fill="rgba(5,14,8,0.93)" stroke="#E9C46A" stroke-width="0.9"/>
-          <!-- Línea interior del saco (cierre) -->
-          <path d="M100,142 L100,308" stroke="rgba(233,196,106,0.15)" stroke-width="0.7"/>
-
-          <!-- Pañuelo de bolsillo (pico) -->
-          <path d="M69,175 L74,163 L78,173 L74,180Z" fill="#E9C46A" opacity="0.6"/>
-
-          <!-- Botones del saco -->
-          <circle cx="100" cy="195" r="2.2" fill="#E9C46A" opacity="0.42" filter="url(#dc-glow)"/>
-          <circle cx="100" cy="218" r="2"   fill="#E9C46A" opacity="0.32"/>
-
-          <!-- Botones de puño en manga -->
-          <circle cx="66" cy="272" r="1.8" fill="#E9C46A" opacity="0.35"/>
-          <circle cx="66" cy="285" r="1.8" fill="#E9C46A" opacity="0.28"/>
-          <circle cx="134" cy="272" r="1.8" fill="#E9C46A" opacity="0.35"/>
-          <circle cx="134" cy="285" r="1.8" fill="#E9C46A" opacity="0.28"/>
-
-          <!-- Pantalones — cónicos y elegantes -->
-          <path d="M68,308
-                   C64,375 58,458 54,558
-                   L87,558
-                   C90,468 94,390 100,350
-                   C106,390 110,468 113,558
-                   L146,558
-                   C142,458 136,375 132,308Z"
-                fill="rgba(5,13,8,0.9)" stroke="#E9C46A" stroke-width="0.9"/>
-
-          <!-- Raya del pantalón (pliegue de plancha) -->
-          <path d="M71,310 C66,408 61,488 57,550" stroke="rgba(233,196,106,0.15)" stroke-width="0.7"/>
-          <path d="M129,310 C134,408 139,488 143,550" stroke="rgba(233,196,106,0.15)" stroke-width="0.7"/>
-
-          <!-- Zapatos Oxford elegantes -->
-          <!-- Zapato izquierdo -->
-          <path d="M42,555 C52,548 68,549 87,554 C82,560 46,560 42,555Z"
-                fill="rgba(3,11,5,0.97)" stroke="#E9C46A" stroke-width="0.8"/>
-          <path d="M49,554 L58,550" stroke="#E9C46A" stroke-width="0.4" opacity="0.4"/>
-          <!-- Zapato derecho -->
-          <path d="M113,554 C132,549 148,548 158,555 C154,560 118,560 113,554Z"
-                fill="rgba(3,11,5,0.97)" stroke="#E9C46A" stroke-width="0.8"/>
-          <path d="M142,550 L151,554" stroke="#E9C46A" stroke-width="0.4" opacity="0.4"/>
-
-          <!-- ══════════════════════
-               Destellos ambientales
-          ══════════════════════ -->
-          <circle cx="30"  cy="168" r="2.8" fill="#E9C46A" opacity="0.55" filter="url(#dc-glow)"/>
-          <circle cx="44"  cy="120" r="1.8" fill="#FFD166" opacity="0.42"/>
-          <circle cx="285" cy="150" r="2.2" fill="#E9C46A" opacity="0.5"  filter="url(#dc-glow)"/>
-          <circle cx="298" cy="260" r="1.5" fill="#FFD166" opacity="0.38"/>
-          <circle cx="24"  cy="345" r="1.2" fill="#E9C46A" opacity="0.32"/>
-          <circle cx="300" cy="400" r="1.2" fill="#E9C46A" opacity="0.28"/>
-          <circle cx="38"  cy="430" r="1.8" fill="#FFD166" opacity="0.22"/>
-          <circle cx="292" cy="472" r="1.2" fill="#E9C46A" opacity="0.22"/>
-
-          <!-- Estrellas decorativas -->
-          <path d="M158,16 L160,23 L167,25 L160,27 L158,34 L156,27 L149,25 L156,23Z"
-                fill="#E9C46A" opacity="0.68" filter="url(#dc-glow)"/>
-          <path d="M27,54 L28.8,60 L35,61.8 L28.8,63.6 L27,69 L25.2,63.6 L19,61.8 L25.2,60Z"
-                fill="#E9C46A" opacity="0.4"/>
-          <path d="M286,80 L287.8,86 L294,87.8 L287.8,89.6 L286,95 L284.2,89.6 L278,87.8 L284.2,86Z"
-                fill="#E9C46A" opacity="0.34"/>
-        </svg>
+      <div id="dress-badge">
+        <span class="badge-icon">&#9819;</span>
+        <span class="badge-text">Etiqueta Formal</span>
       </div>
 
     </div>
   </div><!-- /scene-dress -->
 
 
-  <!-- ▓ SCENE 7 — MESA DE REGALOS ▓ -->
+  <!-- ▓ SCENE 7 — Tus Buenos Deseos (lluvia de sobres) ▓ -->
   <div class="scene" id="scene-gifts">
 
-    <div id="gifts-inner">
+    <!-- Fondo (árbol con sobres, lotos, libélulas) -->
+    <div id="gifts-bg"></div>
+    <div id="gifts-overlay"></div>
 
-      <!-- Columna izquierda: ilustración SVG -->
-      <div id="gifts-illustration">
-        <svg viewBox="0 0 380 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="gift-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="star-glow" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="2.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="gift-bg" cx="50%" cy="60%" r="55%">
-              <stop offset="0%" stop-color="#1B4332" stop-opacity="0.22"/>
-              <stop offset="100%" stop-color="#081C15" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
+    <div id="gifts-content">
 
-          <!-- Halo ambiental -->
-          <ellipse cx="190" cy="300" rx="170" ry="210" fill="url(#gift-bg)"/>
+      <svg class="gifts-lotus" viewBox="0 0 90 50" aria-hidden="true"><g fill="none" stroke="rgba(233,196,106,0.92)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M45 46 C 41 32 41 18 45 8 C 49 18 49 32 45 46 Z"/><path d="M45 46 C 36 34 28 26 22 16 C 34 22 42 32 45 46 Z"/><path d="M45 46 C 54 34 62 26 68 16 C 56 22 48 32 45 46 Z"/><path d="M45 46 C 30 40 16 36 6 28 C 20 36 36 42 45 46 Z"/><path d="M45 46 C 60 40 74 36 84 28 C 70 36 54 42 45 46 Z"/></g></svg>
 
-          <!-- ── CAJA DE REGALO ── -->
-          <!-- Sombra base -->
-          <ellipse cx="190" cy="410" rx="105" ry="18" fill="rgba(0,0,0,0.45)"/>
+      <div class="gifts-eyebrow">Un Detalle Especial</div>
 
-          <!-- Tapa de la caja -->
-          <rect x="92" y="215" width="196" height="42" rx="3"
-                fill="rgba(5,16,9,0.96)" stroke="#E9C46A" stroke-width="1.5"/>
-          <!-- Brillo tapa -->
-          <rect x="96" y="218" width="188" height="16" rx="2"
-                fill="rgba(233,196,106,0.04)"/>
+      <h2 id="gifts-title">
+        <span class="gifts-title-l1">Tus Buenos</span>
+        <span class="gifts-title-l2">Deseos</span>
+      </h2>
 
-          <!-- Cuerpo de la caja -->
-          <rect x="102" y="257" width="176" height="148" rx="3"
-                fill="rgba(5,14,8,0.94)" stroke="#E9C46A" stroke-width="1.5"/>
+      <div class="gifts-div"><span class="gifts-div-line"></span><span class="gifts-div-orn">&#10087;</span><span class="gifts-div-line"></span></div>
 
-          <!-- Franja vertical del lazo — cuerpo -->
-          <rect x="181" y="257" width="18" height="148"
-                fill="rgba(233,196,106,0.08)" stroke="rgba(233,196,106,0.35)" stroke-width="0.8"/>
-          <!-- Franja horizontal del lazo — cuerpo -->
-          <rect x="102" y="316" width="176" height="18"
-                fill="rgba(233,196,106,0.08)" stroke="rgba(233,196,106,0.35)" stroke-width="0.8"/>
+      <p id="gifts-message">
+        Si deseas acompañar este capítulo con un obsequio,
+        encontrarás un espacio preparado con todo mi <em>cariño</em>.
+      </p>
 
-          <!-- Franja vertical del lazo — tapa -->
-          <rect x="181" y="215" width="18" height="42"
-                fill="rgba(233,196,106,0.12)" stroke="rgba(233,196,106,0.4)" stroke-width="0.8"/>
+      <div class="gifts-div"><span class="gifts-div-line"></span><span class="gifts-div-orn">&#10087;</span><span class="gifts-div-line"></span></div>
 
-          <!-- Detalles decorativos caja (puntos brillantes) -->
-          <circle cx="142" cy="295" r="2.5" fill="#E9C46A" opacity="0.55" filter="url(#gift-glow)"/>
-          <circle cx="158" cy="360" r="1.8" fill="#FFD166" opacity="0.42"/>
-          <circle cx="238" cy="310" r="2.2" fill="#E9C46A" opacity="0.50" filter="url(#gift-glow)"/>
-          <circle cx="224" cy="375" r="1.5" fill="#FFD166" opacity="0.38"/>
+      <div class="gifts-subtitle"><span class="gifts-sub-star">&#10022;</span> Sobres de Buenos Deseos <span class="gifts-sub-star">&#10022;</span></div>
+      <p class="gifts-sub-text">Tu mensaje y tus buenos deseos serán parte de este recuerdo inolvidable.</p>
 
-          <!-- ── LAZO ── -->
-          <!-- Asa izquierda -->
-          <path d="M190 215 C165 195, 130 182, 140 162 C150 142, 182 158, 190 215"
-                fill="rgba(5,14,8,0.94)" stroke="#E9C46A" stroke-width="1.4"/>
-          <!-- Asa derecha -->
-          <path d="M190 215 C215 195, 250 182, 240 162 C230 142, 198 158, 190 215"
-                fill="rgba(5,14,8,0.94)" stroke="#E9C46A" stroke-width="1.4"/>
-          <!-- Nudo central del lazo -->
-          <ellipse cx="190" cy="215" rx="11" ry="9"
-                   fill="rgba(7,22,12,0.97)" stroke="#E9C46A" stroke-width="1.3"/>
-          <circle cx="190" cy="215" r="4.5" fill="#E9C46A" opacity="0.82" filter="url(#gift-glow)"/>
+      <div class="gifts-div"><span class="gifts-div-line"></span><span class="gifts-div-heart">&#9829;</span><span class="gifts-div-line"></span></div>
 
-          <!-- Cintas que caen -->
-          <path d="M184 224 C178 255, 172 300, 168 340"
-                stroke="rgba(233,196,106,0.42)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-          <path d="M196 224 C202 255, 208 300, 212 340"
-                stroke="rgba(233,196,106,0.42)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-
-          <!-- ── ESTRELLAS FLOTANTES alrededor ── -->
-          <!-- Estrella grande izq arriba -->
-          <path d="M68 130 L71 142 L83 145 L71 148 L68 160 L65 148 L53 145 L65 142Z"
-                fill="#E9C46A" opacity="0.78" filter="url(#star-glow)"/>
-          <!-- Estrella med izq -->
-          <path d="M44 220 L46.5 229 L56 231.5 L46.5 234 L44 243 L41.5 234 L32 231.5 L41.5 229Z"
-                fill="#E9C46A" opacity="0.55" filter="url(#star-glow)"/>
-          <!-- Estrella peq izq baja -->
-          <path d="M78 355 L80 362 L87 364 L80 366 L78 373 L76 366 L69 364 L76 362Z"
-                fill="#FFD166" opacity="0.48"/>
-          <!-- Estrella grande der arriba -->
-          <path d="M312 118 L315 130 L327 133 L315 136 L312 148 L309 136 L297 133 L309 130Z"
-                fill="#E9C46A" opacity="0.72" filter="url(#star-glow)"/>
-          <!-- Estrella med der -->
-          <path d="M336 265 L338 273 L346 275 L338 277 L336 285 L334 277 L326 275 L334 273Z"
-                fill="#FFD166" opacity="0.58" filter="url(#star-glow)"/>
-          <!-- Estrella peq der baja -->
-          <path d="M298 378 L300 384 L306 386 L300 388 L298 394 L296 388 L290 386 L296 384Z"
-                fill="#E9C46A" opacity="0.42"/>
-          <!-- Puntos pequeños dispersos -->
-          <circle cx="56" cy="172" r="2" fill="#E9C46A" opacity="0.38"/>
-          <circle cx="324" cy="195" r="1.8" fill="#FFD166" opacity="0.35"/>
-          <circle cx="95" cy="415" r="1.5" fill="#E9C46A" opacity="0.32"/>
-          <circle cx="285" cy="420" r="1.5" fill="#FFD166" opacity="0.30"/>
-
-          <!-- ── SOBRE con corazón ── -->
-          <!-- Sombra sobre -->
-          <ellipse cx="190" cy="430" rx="65" ry="9" fill="rgba(0,0,0,0.35)"/>
-          <!-- Cuerpo del sobre -->
-          <rect x="130" y="390" width="120" height="82" rx="4"
-                fill="rgba(6,18,10,0.95)" stroke="#E9C46A" stroke-width="1.3"/>
-          <!-- Solapa del sobre (abierto, levantada) -->
-          <path d="M130 390 L190 422 L250 390"
-                fill="rgba(8,24,14,0.97)" stroke="#E9C46A" stroke-width="1.3"/>
-          <!-- Interior pliegue inferior -->
-          <path d="M130 472 L190 440 L250 472"
-                fill="rgba(5,14,8,0.6)" stroke="rgba(233,196,106,0.25)" stroke-width="0.8"/>
-          <!-- Corazón dorado en el centro del sobre -->
-          <path d="M190 452 C190 452, 178 442, 178 435 C178 430, 183 427, 187 430 C188.5 431, 190 433, 190 433
-                   C190 433, 191.5 431, 193 430 C197 427, 202 430, 202 435 C202 442, 190 452, 190 452Z"
-                fill="#E9C46A" opacity="0.85" filter="url(#gift-glow)"/>
-
-          <!-- Destellos saliendo del sobre -->
-          <path d="M190 388 L186 372 M190 388 L198 370 M190 388 L178 366"
-                stroke="rgba(233,196,106,0.55)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-          <circle cx="186" cy="371" r="1.8" fill="#FFD166" opacity="0.7" filter="url(#star-glow)"/>
-          <circle cx="198" cy="369" r="1.4" fill="#E9C46A" opacity="0.65" filter="url(#star-glow)"/>
-          <circle cx="178" cy="365" r="1.2" fill="#FFD166" opacity="0.6" filter="url(#star-glow)"/>
-        </svg>
-      </div>
-
-      <!-- Columna derecha: texto -->
-      <div id="gifts-copy">
-
-        <div class="gifts-eyebrow">✦ &nbsp; Un detalle especial &nbsp; ✦</div>
-
-        <h2 id="gifts-title">
-          <span class="gifts-title-l1">Mesa de</span>
-          <span class="gifts-title-l2">Regalos</span>
-        </h2>
-
-        <div class="gifts-divider">
-          <span class="gifts-div-line"></span>
-          <span class="gifts-div-gem">◆</span>
-          <span class="gifts-div-line"></span>
-        </div>
-
-        <p id="gifts-message">
-          Guardaré los recuerdos de esta noche bajo las estrellas
-          como mi mayor tesoro. Si gustas tener un detalle
-          adicional conmigo, te comparto con mucho amor:
-        </p>
-
-        <div id="gifts-sobres">
-          <span class="sobres-line"></span>
-          <span class="sobres-text">Lluvia de<br>sobres</span>
-          <span class="sobres-line"></span>
-        </div>
-
-        <p id="gifts-hint">
-          Tu presencia es el regalo más grande que puedo recibir.
-        </p>
-
-      </div>
+      <p class="gifts-final">Tu presencia ya es el regalo más valioso.</p>
 
     </div>
   </div><!-- /scene-gifts -->
@@ -1512,6 +973,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=16" defer></script>
+<script src="daniela-xv.js?v=19" defer></script>
 </body>
 </html>
