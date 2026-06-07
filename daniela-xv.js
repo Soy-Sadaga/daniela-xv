@@ -1033,7 +1033,7 @@ function spawnWisp(){}
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if(!initialized){
       flyX = W * 0.68;
-      flyY = H * 0.42;
+      flyY = H * (W < 769 ? 0.68 : 0.42);
       initialized = true;
     }
   }
@@ -1164,7 +1164,7 @@ function spawnWisp(){}
     flyBob = Math.sin(t * 2.1) * 4.5;
 
     // Trayectoria orgánica flotante (Lissajous)
-    const bx = W * 0.67, by = H * 0.42;
+    const bx = W * 0.67, by = H * (W < 769 ? 0.68 : 0.42);
     const nx = bx + Math.sin(t*0.72 + 0.6)*72 + Math.cos(t*0.29)*38;
     const ny = by + Math.cos(t*0.58)*48       + Math.sin(t*0.41)*26;
 
@@ -1245,20 +1245,10 @@ function spawnWisp(){}
       mouseNear = true;
     }, { passive:true });
     sceneNode.addEventListener('mouseleave', ()=>{ mouseNear = false; });
-    sceneNode.addEventListener('touchmove', e=>{
-      const r = canvas.getBoundingClientRect();
-      mouseX = e.touches[0].clientX - r.left;
-      mouseY = e.touches[0].clientY - r.top;
-      mouseNear = true;
-    }, { passive:true });
-    sceneNode.addEventListener('touchend', ()=>{ mouseNear = false; });
-    sceneNode.addEventListener('touchstart', e=>{
-      e.preventDefault();
-      const r = canvas.getBoundingClientRect();
-      mouseX = e.touches[0].clientX - r.left;
-      mouseY = e.touches[0].clientY - r.top;
-      openMaps();
-    }, { passive:false });
+    // En móvil NO seguimos el dedo: el seguimiento táctil capturaba el gesto
+    // de scroll y dejaba al usuario atrapado en esta escena. La luciérnaga
+    // sigue siendo tocable (tap → openMaps) vía el listener de la imagen y
+    // el click del canvas, sin bloquear el scroll.
   }
 
   // Ring del cursor personalizado

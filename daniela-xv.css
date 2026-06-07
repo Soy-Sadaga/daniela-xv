@@ -162,9 +162,10 @@ body {
 /* Castillo (imagen PNG) */
 #castle-svg {
   position: absolute; bottom: 0; left: 50%;
-  /* La imagen tiene ~7% transparente abajo; translateY(7%) asienta la base en el agua */
-  transform: translateX(-50%) translateY(7%);
-  width: clamp(260px, 30vw, 480px);
+  /* Imagen horizontal (castillo centrado con espacio a los lados): necesita
+     más ancho para verse prominente. translateY asienta la base en el agua. */
+  transform: translateX(-50%) translateY(3%);
+  width: clamp(300px, 52vw, 820px);
   height: auto;
   display: block;
   /* SIN filtros: aplicar drop-shadow con desenfoque sobre esta imagen mientras
@@ -183,8 +184,8 @@ body {
   position: absolute;
   bottom: 0; left: 50%;
   transform: translateX(-50%);
-  width: clamp(280px, 32vw, 560px);
-  height: 16%;
+  width: clamp(300px, 50vw, 800px);
+  height: 14%;
   z-index: 4;
   pointer-events: none;
   background:
@@ -2130,22 +2131,24 @@ body {
 /* Responsive Scene 7 */
 @media (max-width: 768px) {
   #scene-location {
-    justify-content: center; align-items: flex-end;
-    padding: 0 0 7vh 0;
+    justify-content: center; align-items: flex-start;
+    padding: 7vh 0 0 0;
   }
   #location-content {
     max-width: 92vw; align-items: center;
     text-align: center; gap: 1.1rem;
-    padding: 1.8rem 1.6rem 2rem;
-    background: rgba(8,22,15,0.72);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(233,196,106,0.11);
+    padding: 0 1.6rem;
+    background: none;
+    backdrop-filter: none;
+    border: none;
   }
+  .loc-eyebrow { text-shadow: 0 0 18px rgba(0,0,0,0.9); }
   .loc-l1 { font-size: 2.2rem; }
   .loc-l2 { font-size: 1.75rem; margin-left: 0; }
   .loc-l3 { font-size: 1.45rem; margin-left: 0; }
   #loc-headline { align-items: center; }
+  #loc-address { text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
   .loc-hint { display: none; }
   .loc-btn-inner { font-size: 0.55rem; padding: 0.8rem 1.6rem; }
-  #firefly-img { width: 120px; }
+  #firefly-img { width: 150px; }
 }
