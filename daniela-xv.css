@@ -1795,6 +1795,29 @@ body {
   /* Year */
   #entry-year { font-size: clamp(0.65rem, 1.4vw, 0.8rem); }
 
+  /* Scene 1 - Castillo (móvil): castillo más prominente + texto legible.
+     En vertical el castillo quedaba diminuto al fondo y el texto, con su
+     espaciado ancho, se estiraba de borde a borde sobre las linternas
+     (ilegible). Lo agrandamos, lo subimos a la franja de cielo más oscura
+     y le damos sombra para contraste. */
+  #castle-svg {
+    width: min(118vw, 480px);
+    transform: translateX(-50%) translateY(2%);
+  }
+  #castle-base-haze { width: min(110vw, 460px); }
+  #opening-copy {
+    bottom: auto; top: 16%;
+    width: 86vw;
+  }
+  #opening-copy p {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    color: rgba(248,249,250,0.8);
+    text-shadow: 0 2px 16px rgba(0,0,0,0.9), 0 0 36px rgba(0,0,0,0.65);
+  }
+  .scroll-cue { margin-top: 1rem; }
+  .scroll-cue span { text-shadow: 0 2px 12px rgba(0,0,0,0.85); }
+
   /* Scene 2 - Name Reveal */
   #xv-name { font-size: clamp(2.5rem, 12vw, 5rem); }
   #crown-glyph { font-size: clamp(1.5rem, 6vw, 2.5rem); }
