@@ -1981,6 +1981,10 @@ body {
     justify-content: flex-start;
   }
   .gifts-lotus { display: none; }                 /* el árbol ya es el motivo */
+  /* Separadores: solo el ornamento central (sin las líneas doradas), como la
+     referencia. Esto además libera espacio para la ilustración. */
+  .gifts-div-line { display: none; }
+  .gifts-div { gap: 0; margin: clamp(0.5rem, 1.4vh, 1rem) 0; }
   /* empuja el bloque de texto al tercio inferior, dejando el árbol visible en medio.
      El primer .gifts-div es el 2º <div> hijo (el 1º es .gifts-eyebrow). */
   #gifts-content > .gifts-div:nth-of-type(2) { margin-top: auto; }
