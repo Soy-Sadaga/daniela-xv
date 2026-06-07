@@ -707,7 +707,9 @@ body {
      quedaba "medio cuerpo cortado". La recentramos y la fundimos en los
      bordes con una viñeta para que sea una presencia atmosférica, no una
      foto recortada. */
-  #dress-bg { background-size: 215% auto; background-position: 88% 30%; }
+  /* Usa la imagen vertical (fondo_vestimenta_movil.webp, via data-bg-mobile):
+     llena toda la pantalla con cover y muestra a ambas figuras completas. */
+  #dress-bg { background-size: cover; background-position: center; }
   #dress-overlay {
     background:
       radial-gradient(ellipse 92% 66% at 50% 42%,

@@ -380,8 +380,14 @@ function lazyLoadBackgrounds(p){
     const el  = _lazyBgEls[i];
     const idx = parseFloat(el.getAttribute('data-scene')) || 0;
     if(p >= idx - PRELOAD){
-      el.style.backgroundImage = "url('" + el.getAttribute('data-bg') + "')";
+      // En móvil (≤768px) usamos la variante vertical si existe (data-bg-mobile),
+      // para que el fondo llene la pantalla sin recortar a las figuras.
+      const mob = el.getAttribute('data-bg-mobile');
+      const src = (mob && window.matchMedia('(max-width:768px)').matches)
+        ? mob : el.getAttribute('data-bg');
+      el.style.backgroundImage = "url('" + src + "')";
       el.removeAttribute('data-bg');
+      el.removeAttribute('data-bg-mobile');
       _lazyBgEls.splice(i, 1);
     }
   }
