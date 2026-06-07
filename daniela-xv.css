@@ -1963,42 +1963,38 @@ body {
   text-shadow: 0 2px 10px rgba(0,0,0,0.45);
 }
 
-/* Móvil: composición asimétrica (Opción 1). Imagen vertical con el árbol de
-   los deseos reflejado en el estanque (data-bg-mobile); el texto se alinea a
-   la derecha sobre la zona oscura, no centrado en bloque. */
+/* Móvil: composición tipo referencia — título arriba, árbol de los deseos como
+   héroe en el centro, texto centrado abajo sobre el agua oscura (data-bg-mobile). */
 @media (max-width: 768px) {
-  #scene-gifts { justify-content: flex-end; align-items: center; }
-  #gifts-bg { background-size: cover; background-position: 26% top; }
+  #scene-gifts { justify-content: center; align-items: stretch; }
+  #gifts-bg { background-size: cover; background-position: center top; }
   #gifts-overlay {
     background:
-      linear-gradient(to left,
-        rgba(4,12,8,0.97) 0%, rgba(4,12,8,0.92) 36%, rgba(4,12,8,0.55) 56%, rgba(4,12,8,0.12) 74%, transparent 88%),
       linear-gradient(to bottom,
-        rgba(4,12,8,0.5) 0%, transparent 24%, transparent 72%, rgba(4,12,8,0.6) 100%);
+        rgba(5,15,10,0.55) 0%, rgba(5,15,10,0.18) 12%, transparent 24%,
+        transparent 52%, rgba(5,14,9,0.55) 66%, rgba(5,14,9,0.86) 80%, rgba(5,14,9,0.93) 100%);
   }
   #gifts-content {
-    width: min(62vw, 350px);
-    margin-right: clamp(0.8rem, 4vw, 1.6rem);
-    text-align: right; align-items: flex-end;
-    /* Halo oscuro suave detrás del texto (sin caja dura) para que no se pierda */
-    padding: 1.4rem 1.1rem 1.6rem 1.8rem;
-    background: radial-gradient(ellipse 130% 96% at 78% 50%,
-      rgba(4,12,8,0.86) 0%, rgba(4,12,8,0.66) 48%, rgba(4,12,8,0.28) 72%, transparent 90%);
+    width: min(90vw, 460px); margin: 0 auto;
+    height: 100%; padding: 5vh 0 13vh;
+    text-align: center; align-items: center;
+    justify-content: flex-start;
   }
-  #gifts-title { align-items: flex-end; }
+  .gifts-lotus { display: none; }                 /* el árbol ya es el motivo */
+  /* empuja el bloque de texto al tercio inferior, dejando el árbol visible en medio.
+     El primer .gifts-div es el 2º <div> hijo (el 1º es .gifts-eyebrow). */
+  #gifts-content > .gifts-div:nth-of-type(2) { margin-top: auto; }
   .gifts-title-l1, .gifts-title-l2 {
-    filter: drop-shadow(0 0 24px rgba(233,196,106,0.3)) drop-shadow(0 2px 6px rgba(0,0,0,0.9));
+    filter: drop-shadow(0 0 24px rgba(233,196,106,0.3)) drop-shadow(0 2px 8px rgba(0,0,0,0.9));
   }
-  .gifts-div { width: 100%; }
   #gifts-message, .gifts-sub-text {
-    max-width: 100%;
     color: rgba(248,249,250,0.95);
     text-shadow: 0 2px 14px rgba(0,0,0,1), 0 0 6px rgba(0,0,0,0.95), 0 0 22px rgba(0,0,0,0.7);
   }
   .gifts-eyebrow, .gifts-subtitle, .gifts-final {
     text-shadow: 0 2px 12px rgba(0,0,0,1), 0 0 8px rgba(0,0,0,0.9);
   }
-  .gifts-final { color: rgba(233,196,106,0.78); }
+  .gifts-final { color: rgba(233,196,106,0.8); }
 }
 
 /* ══════════════════════════════════════════════════════
