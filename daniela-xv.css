@@ -1971,8 +1971,8 @@ body {
   #gifts-overlay {
     background:
       linear-gradient(to bottom,
-        rgba(5,15,10,0.55) 0%, rgba(5,15,10,0.18) 12%, transparent 24%,
-        transparent 52%, rgba(5,14,9,0.55) 66%, rgba(5,14,9,0.86) 80%, rgba(5,14,9,0.93) 100%);
+        rgba(5,15,10,0.45) 0%, rgba(5,15,10,0.12) 12%, transparent 24%,
+        transparent 44%, rgba(4,12,8,0.55) 56%, rgba(4,12,8,0.85) 66%, rgba(4,12,8,0.94) 78%, rgba(4,12,8,0.96) 100%);
   }
   #gifts-content {
     width: min(90vw, 460px); margin: 0 auto;
