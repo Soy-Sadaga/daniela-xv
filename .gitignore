@@ -6,5 +6,7 @@ package-lock.json
 # Respaldo local del audio original (no se sirve en la web)
 music_original.mp3
 
-# Scripts temporales de construcción
+# Scripts e imágenes temporales de construcción
 _*.js
+_*.webp
+_*.png
