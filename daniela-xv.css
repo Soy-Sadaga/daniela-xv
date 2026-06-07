@@ -1801,10 +1801,10 @@ body {
      (ilegible). Lo agrandamos, lo subimos a la franja de cielo más oscura
      y le damos sombra para contraste. */
   #castle-svg {
-    width: min(132vw, 540px);
-    transform: translateX(-50%) translateY(-7%);
+    width: min(158vw, 640px);
+    transform: translateX(-50%) translateY(-6%);
   }
-  #castle-base-haze { width: min(124vw, 520px); bottom: 5%; }
+  #castle-base-haze { width: min(150vw, 620px); bottom: 5%; }
   #opening-copy {
     bottom: auto; top: 16%;
     width: 86vw;
