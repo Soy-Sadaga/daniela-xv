@@ -1229,7 +1229,8 @@ function spawnWisp(){}
   }
 
   /* ── listeners ── */
-  canvas.addEventListener('click', openMaps);
+  // Solo la luciérnaga y el botón abren Maps. (Antes el canvas entero tenía
+  // click → en móvil tocar cualquier parte de la pantalla abría Maps.)
   if(flyImg) flyImg.addEventListener('click', openMaps);
 
   const ctaBtn = document.getElementById('location-cta');
