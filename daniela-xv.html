@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=59">
+  <link rel="stylesheet" href="daniela-xv.css?v=60">
 </head>
 <body>
 
@@ -439,40 +439,14 @@
 
   <!-- ▓ SCENE 2 — Name Reveal ▓ -->
   <div class="scene" id="scene-reveal">
-    <!-- Fondo: escenario del pantano encantado (lazy-load) -->
-    <div id="reveal-bg" data-bg="fondo_daniela.webp?v=1" data-scene="1"></div>
-    <div id="reveal-overlay"></div>
-
-    <div id="name-wrap">
-      <div class="reveal-top">
-        <div class="pre-label">Con todo el amor del mundo, te invitamos a celebrar a</div>
-        <span id="crown-glyph">♛</span>
-        <h1 id="xv-name">Daniela</h1>
-        <div class="name-rule">
-          <div class="name-rule-line"></div>
-          <span class="name-rule-diamond">✦</span>
-          <div class="name-rule-line"></div>
-        </div>
-      </div>
-
-      <!-- RETRATO: para usar la foto real, guarda "daniela_foto.webp" en la
-           carpeta. Aparece sola y el placeholder desaparece automáticamente. -->
-      <div id="name-portrait" class="is-empty">
-        <img id="name-photo" src="daniela_foto.webp" alt="Daniela"
-             onload="document.getElementById('name-portrait').classList.remove('is-empty')"
-             onerror="this.style.display='none'">
-        <div class="portrait-grade"></div>
-        <div class="portrait-vignette"></div>
-        <div class="portrait-ph">
-          <span class="portrait-ph-icon">♛</span>
-          <span class="portrait-ph-txt">Foto de Daniela</span>
-        </div>
-      </div>
-
-      <div class="reveal-bottom">
-        <div id="xv-years">XV &nbsp; Años</div>
-        <p id="name-tagline">Una princesa que convirtió su sueño en realidad</p>
-      </div>
+    <!-- Marco ornamentado (imagen) como tarjeta centrada. La foto real se
+         encaja en el interior del marco; cuando no existe, se ve el placeholder
+         (ícono de cámara) que ya trae la propia imagen del marco. -->
+    <div id="daniela-card">
+      <img id="reveal-frame" src="fondo_daniela.webp?v=2" alt="" draggable="false">
+      <!-- Foto real: guarda "daniela_foto.webp" en la carpeta y aparece sola -->
+      <img id="name-photo" src="daniela_foto.webp" alt="Daniela" draggable="false"
+           onerror="this.style.display='none'">
     </div>
   </div><!-- /scene-reveal -->
 
@@ -977,6 +951,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=26" defer></script>
+<script src="daniela-xv.js?v=27" defer></script>
 </body>
 </html>
