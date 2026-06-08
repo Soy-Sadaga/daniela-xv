@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=55">
+  <link rel="stylesheet" href="daniela-xv.css?v=56">
 </head>
 <body>
 
@@ -439,16 +439,21 @@
 
   <!-- ▓ SCENE 2 — Name Reveal ▓ -->
   <div class="scene" id="scene-reveal">
-    <div id="name-burst"></div>
-    <div class="ray" style="left:18%;animation-delay:0s;"></div>
-    <div class="ray" style="left:32%;animation-delay:1.2s;"></div>
-    <div class="ray" style="left:50%;background:linear-gradient(to bottom,rgba(233,196,106,0.13),transparent);animation-delay:0.6s;"></div>
-    <div class="ray" style="left:68%;animation-delay:1.8s;"></div>
-    <div class="ray" style="left:82%;animation-delay:0.4s;"></div>
+    <!-- Fondo: escenario del pantano encantado (lazy-load) -->
+    <div id="reveal-bg" data-bg="fondo_daniela.webp?v=1" data-scene="1"></div>
+    <div id="reveal-overlay"></div>
 
     <div id="name-wrap">
-      <div class="pre-label">Con todo el amor del mundo, te invitamos a celebrar a</div>
-      <span id="crown-glyph">♛</span>
+      <div class="reveal-top">
+        <div class="pre-label">Con todo el amor del mundo, te invitamos a celebrar a</div>
+        <span id="crown-glyph">♛</span>
+        <h1 id="xv-name">Daniela</h1>
+        <div class="name-rule">
+          <div class="name-rule-line"></div>
+          <span class="name-rule-diamond">✦</span>
+          <div class="name-rule-line"></div>
+        </div>
+      </div>
 
       <!-- RETRATO: para usar la foto real, guarda "daniela_foto.webp" en la
            carpeta. Aparece sola y el placeholder desaparece automáticamente. -->
@@ -464,14 +469,10 @@
         </div>
       </div>
 
-      <h1 id="xv-name">Daniela</h1>
-      <div class="name-rule">
-        <div class="name-rule-line"></div>
-        <span class="name-rule-diamond">✦</span>
-        <div class="name-rule-line"></div>
+      <div class="reveal-bottom">
+        <div id="xv-years">XV &nbsp; Años</div>
+        <p id="name-tagline">Una princesa que convirtió su sueño en realidad</p>
       </div>
-      <div id="xv-years">XV &nbsp; Años</div>
-      <p id="name-tagline">Una princesa que convirtió su sueño en realidad</p>
     </div>
   </div><!-- /scene-reveal -->
 

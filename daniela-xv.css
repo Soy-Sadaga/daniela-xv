@@ -253,33 +253,40 @@ body {
 ══════════════════════════════ */
 #scene-reveal {
   z-index: 10;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: stretch; justify-content: center;
+  overflow: hidden;
 }
 
-#name-burst {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(233,196,106,0.1) 0%, transparent 70%);
+/* Fondo: escenario del pantano encantado */
+#reveal-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-color: #05130d;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
   pointer-events: none;
-  animation: burstPulse 5s ease-in-out infinite;
 }
-@keyframes burstPulse { 0%,100%{opacity:0.6;transform:translate(-50%,-50%) scale(1);} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.05);} }
-
-/* Light rays */
-.ray {
-  position: absolute; top: 0; width: 1px; height: 100%;
-  background: linear-gradient(to bottom, rgba(233,196,106,0.07), transparent);
-  animation: rayPulse 4s ease-in-out infinite;
+#reveal-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(4,12,8,0.62) 0%, rgba(4,12,8,0.22) 16%, transparent 32%,
+    transparent 64%, rgba(4,12,8,0.45) 80%, rgba(4,12,8,0.8) 100%);
 }
-@keyframes rayPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
 
-#name-wrap { text-align: center; position: relative; z-index: 2; padding: 2rem; }
+#name-wrap {
+  text-align: center; position: relative; z-index: 2;
+  width: min(92vw, 560px); margin: 0 auto; height: 100%;
+  padding: 5vh 1.2rem 6vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+}
+.reveal-top, .reveal-bottom {
+  display: flex; flex-direction: column; align-items: center; width: 100%;
+}
 
 .pre-label {
   font-family: 'Cinzel', serif; font-size: clamp(0.45rem,0.9vw,0.65rem);
   letter-spacing: 0.6em; color: var(--gold); text-transform: uppercase;
-  margin-bottom: 0.8rem; opacity: 0.8;
+  margin-bottom: 0.8rem; opacity: 0.85;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.9);
 }
 #crown-glyph {
   font-size: clamp(2rem,4vw,3.5rem); display: block;
@@ -291,9 +298,9 @@ body {
 /* ── Retrato de la quinceañera (marco arco + viñeta + grading) ── */
 #name-portrait {
   position: relative;
-  width: clamp(190px, 52vw, 280px);
+  width: clamp(210px, 56vw, 300px);
   aspect-ratio: 3 / 4;
-  margin: 0.2rem auto 1.2rem;
+  margin: 0;
   border-radius: 50% 50% 14px 14px / 38% 38% 14px 14px;  /* arco catedral */
   overflow: hidden;
   border: 1px solid rgba(233,196,106,0.55);
@@ -346,7 +353,7 @@ body {
     var(--rose-light) 60%, var(--gold-light) 85%, var(--gold) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(233,196,106,0.35));
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.85)) drop-shadow(0 0 40px rgba(233,196,106,0.3));
   background-size: 200% 200%;
   animation: shimmer 6s linear infinite;
 }
@@ -373,10 +380,12 @@ body {
   font-size: clamp(0.9rem,2.2vw,1.8rem);
   letter-spacing: 0.85em; color: var(--rose-light);
   margin-bottom: 0.8rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.92);
 }
 #name-tagline {
   font-style: italic; font-size: clamp(0.85rem,1.4vw,1.2rem);
-  color: var(--silver); letter-spacing: 0.05em; opacity: 0.85;
+  color: rgba(248,249,250,0.9); letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.92);
 }
 
 /* ══════════════════════════════
