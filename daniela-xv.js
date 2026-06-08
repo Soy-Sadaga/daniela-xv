@@ -251,11 +251,14 @@ tl1
   .to('#mtn-near',        { y:'-50px', ease:'none' }, 0)
   .to('#opening-copy',    { opacity:0, y:-25, ease:'power2.in' }, 0)
   /* (opacidad de escenas controlada por enforceSceneVisibility) */
+  .fromTo('#name-monogram',{ scale:0.8, opacity:0 }, { scale:1, opacity:1, ease:'power2.out' }, 0.5)
   .fromTo('#xv-name',     { scale:0.5, opacity:0 },
                           { scale:1, opacity:1, ease:'back.out(1.8)' }, 0.58)
   .fromTo('#crown-glyph', { y:-50, opacity:0 },
                           { y:0, opacity:1, ease:'back.out(2)' }, 0.6)
-  .fromTo('#xv-years',    { y:25, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.65)
+  .fromTo('#crown-halo',  { scale:0.6, opacity:0 }, { scale:1, opacity:1, ease:'power2.out' }, 0.6)
+  .fromTo('.name-flourish',{ scaleX:0.3, opacity:0 }, { scaleX:1, opacity:1, ease:'power2.out' }, 0.64)
+  .fromTo('#xv-years',    { y:25, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.66)
   .fromTo('#name-tagline',{ y:18, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.7)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo I — El Nombre', 0.5);
 
