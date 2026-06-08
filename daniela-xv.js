@@ -1,3 +1,8 @@
+/* Al recargar, empezar SIEMPRE arriba (escena del castillo) en vez de
+   restaurar la posición de scroll donde estaba el usuario. */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 /* ═══════════════════════════════════════════
    THREE.JS — Star Field + Nebula + Particles
 ═══════════════════════════════════════════ */
@@ -805,6 +810,10 @@ function spawnWisp(){}
                           // de 1.1s → por eso tardaba 1-2s en poder hacer scroll).
                           document.documentElement.style.overflowY = 'auto';
                           document.body.style.overflowY = 'auto';
+                          // Asegurar que la invitación arranque en la escena
+                          // inicial (castillo), no donde el usuario haya quedado
+                          // antes de recargar.
+                          window.scrollTo(0, 0);
                           // ScrollTrigger se inicializó con el scroll BLOQUEADO;
                           // al desbloquearlo hay que recalcular para que rastree
                           // bien el desplazamiento.
