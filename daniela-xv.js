@@ -252,7 +252,7 @@ tl1
   .to('#opening-copy',    { opacity:0, y:-25, ease:'power2.in' }, 0)
   /* (opacidad de escenas controlada por enforceSceneVisibility) */
   .fromTo('.reveal-eyebrow', { y:-15, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.5)
-  .fromTo('#daniela-card', { scale:0.85, opacity:0 },
+  .fromTo('#daniela-frame', { scale:0.85, opacity:0 },
                           { scale:1, opacity:1, ease:'back.out(1.4)' }, 0.55)
   .fromTo('.reveal-name', { y:20, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.66)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo I — El Nombre', 0.5);

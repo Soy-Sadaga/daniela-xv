@@ -259,47 +259,36 @@ body {
   overflow: hidden;
 }
 
-/* Capa de fondo difuminada (cubre toda la pantalla, rellena los lados en PC) */
-#reveal-bg-blur {
+/* Escenario a pantalla completa (cubre todo en PC y móvil) */
+#reveal-bg {
   position: absolute; inset: 0; z-index: 0;
   background-color: #05130d;
   background-position: center; background-size: cover; background-repeat: no-repeat;
-  filter: blur(40px) brightness(0.5) saturate(1.05);
-  transform: scale(1.18);
   pointer-events: none;
 }
 
-/* Tarjeta del marco.
-   VERTICAL (celular): efecto "cover" (min-width/height:100% + aspect-ratio) →
-   cubre toda la pantalla, recorta el cielo/agua extendidos.
-   HORIZONTAL (PC): se ajusta por altura (contain) → marco completo centrado,
-   bordes oscuros a los lados. El texto va dentro y se alinea al marco. */
-#daniela-card {
+/* Marco transparente centrado (más pequeño que la pantalla) con la foto dentro */
+#daniela-frame {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  aspect-ratio: 1023 / 2227;
-  min-width: 100%; min-height: 100%;
-  width: auto; height: auto;
-  z-index: 1;
-}
-@media (orientation: landscape) {
-  #daniela-card {
-    min-width: 0; min-height: 0;
-    height: 100%; width: auto;
-  }
+  z-index: 2;
+  width: min(82vw, 72vh * 0.6667);
+  aspect-ratio: 1024 / 1536;
+  filter: drop-shadow(0 18px 50px rgba(0,0,0,0.55));
 }
 #reveal-frame {
   position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: contain;
   display: block; user-select: none;
+  z-index: 1;
 }
-/* Foto real encajada en el interior del marco (sobre la zona crema con la
-   cámara). Ajusta estos % si la foto no calza exacta. */
+/* Foto real encajada en el hueco crema del marco (ENCIMA, porque el interior
+   del marco es crema opaco). Ajusta estos % si hace falta. */
 #name-photo {
   position: absolute;
-  top: 28.1%; left: 22%; width: 56%; height: 39%;
+  top: 16%; left: 15.5%; width: 69%; height: 75%;
   object-fit: cover; object-position: center 30%;
-  border-radius: 6px;
-  z-index: 1; user-select: none;
+  z-index: 2;
+  user-select: none;
 }
 
 /* Degradados fijos a la pantalla (para legibilidad del texto) */

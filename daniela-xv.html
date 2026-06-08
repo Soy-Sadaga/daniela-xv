@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=70">
+  <link rel="stylesheet" href="daniela-xv.css?v=71">
 </head>
 <body>
 
@@ -440,23 +440,18 @@
   <!-- ▓ SCENE 2 — Name Reveal ▓ -->
   <div class="scene" id="scene-reveal">
 
-    <!-- Capa de fondo difuminada: rellena toda la pantalla con la ambientación
-         (sobre todo los lados en PC), detrás del marco centrado. -->
-    <div id="reveal-bg-blur" data-bg="fondo_daniela.webp?v=4" data-scene="1"></div>
+    <!-- Escenario a pantalla completa (cubre todo, PC y móvil) -->
+    <div id="reveal-bg" data-bg="fondo_xv.webp?v=1" data-scene="1"></div>
+    <div class="reveal-scrim-top"></div>
+    <div class="reveal-scrim-bottom"></div>
 
-    <!-- Marco ornamentado. Vertical (celular): cubre toda la pantalla.
-         Horizontal (PC): marco completo centrado. El texto va DENTRO de la
-         tarjeta para alinearse al marco en ambos casos. -->
-    <div id="daniela-card">
-      <img id="reveal-frame" src="fondo_daniela.webp?v=4" alt="" draggable="false">
+    <!-- Marco transparente centrado (más pequeño) con la foto dentro -->
+    <div id="daniela-frame">
+      <img id="reveal-frame" src="place_holder.webp?v=1" alt="" draggable="false">
       <!-- Foto real: guarda "daniela_foto.webp" en la carpeta y aparece sola -->
       <img id="name-photo" src="daniela_foto.webp" alt="Daniela" draggable="false"
            onerror="this.style.display='none'">
     </div>
-
-    <!-- Degradados + texto, fijos a la pantalla (nunca se cortan) -->
-    <div class="reveal-scrim-top"></div>
-    <div class="reveal-scrim-bottom"></div>
 
     <div class="reveal-eyebrow">✦ &nbsp; Con todo el amor del mundo, te invitamos a celebrar &nbsp; ✦</div>
 
@@ -968,6 +963,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=28" defer></script>
+<script src="daniela-xv.js?v=29" defer></script>
 </body>
 </html>
