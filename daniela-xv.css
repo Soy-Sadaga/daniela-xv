@@ -261,8 +261,13 @@ body {
 #reveal-bg {
   position: absolute; inset: 0; z-index: 0;
   background-color: #05130d;
-  background-position: center; background-size: cover; background-repeat: no-repeat;
+  background-position: center top; background-size: cover; background-repeat: no-repeat;
   pointer-events: none;
+}
+/* En móvil mostramos la imagen completa (sin zoom/recorte): se ve más amplia y
+   nítida; los bordes sobrantes se funden con el fondo oscuro. */
+@media (max-width: 768px) {
+  #reveal-bg { background-size: contain; background-position: center; }
 }
 #reveal-overlay {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
