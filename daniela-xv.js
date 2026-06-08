@@ -1002,7 +1002,16 @@ function spawnWisp(){}
 ═══════════════════════════════════════════════════════════════ */
 (function initRay(){
   const canvas = document.getElementById('ray-canvas');
-  if(!canvas) return;
+  // La luciérnaga/canvas fue retirada de "Cómo Llegar"; ahora la escena usa una
+  // imagen de fondo y SOLO el botón abre Maps. Si no existe el canvas, cableamos
+  // únicamente el botón y salimos (sin animación ni clics en el fondo).
+  if(!canvas){
+    const btn = document.getElementById('location-cta');
+    if(btn) btn.addEventListener('click', ()=>{
+      window.open(window._gmapsUrl || 'https://maps.google.com/', '_blank', 'noopener');
+    });
+    return;
+  }
   const ctx    = canvas.getContext('2d');
   const flyImg = document.getElementById('firefly-img');
 

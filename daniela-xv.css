@@ -2008,13 +2008,26 @@ body {
 #scene-location {
   z-index: 10;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 0 0 clamp(3rem, 9vw, 11rem);
+  align-items: stretch;
+  justify-content: center;
   overflow: hidden;
 }
 
-/* Canvas: agua + atmósfera + luciernagas ambientales */
+/* Fondo: ilustración del caimán músico */
+#location-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-color: #05130d;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  pointer-events: none;
+}
+#location-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(4,12,8,0.68) 0%, rgba(4,12,8,0.24) 14%, transparent 28%,
+    transparent 56%, rgba(4,12,8,0.42) 70%, rgba(4,12,8,0.82) 86%, rgba(4,12,8,0.93) 100%);
+}
+
+/* Canvas: agua + atmósfera + luciernagas ambientales (sin uso en esta escena) */
 #ray-canvas {
   position: absolute;
   inset: 0;
@@ -2068,50 +2081,55 @@ body {
   to   { transform: translateX(12%); }
 }
 
-/* Contenido textual */
+/* Contenido textual: título arriba, lugar+botón abajo, ilustración en medio.
+   pointer-events:none → SOLO el botón (que lo reactiva) es clickeable. */
 #location-content {
   position: relative;
   z-index: 5;
-  pointer-events: auto;
+  pointer-events: none;
+  width: min(92vw, 620px); margin: 0 auto; height: 100%;
+  padding: 6vh 1.4rem 6vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: min(540px, 46vw);
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.loc-top, .loc-bottom {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.1rem; width: 100%;
 }
 
 .loc-eyebrow {
   font-family: 'Cinzel', serif;
-  font-size: 0.50rem;
+  font-size: 0.55rem;
   letter-spacing: 0.52em;
-  color: rgba(233,196,106,0.44);
+  color: rgba(233,196,106,0.6);
   text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.9);
 }
 
 #loc-headline {
   display: flex;
   flex-direction: column;
-  line-height: 1.02;
+  align-items: center;
+  line-height: 1.0;
 }
 .loc-l1 {
   font-family: 'Cinzel Decorative', serif;
   font-size: clamp(2.6rem, 5.2vw, 4.8rem);
   color: var(--gold); font-weight: 400;
-  text-shadow: 0 0 36px rgba(233,196,106,0.50), 0 0 75px rgba(233,196,106,0.18);
+  text-shadow: 0 0 36px rgba(233,196,106,0.45), 0 2px 12px rgba(0,0,0,0.85);
 }
 .loc-l2 {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(1.9rem, 3.8vw, 3.6rem);
-  color: rgba(248,249,250,0.78); font-weight: 300;
-  margin-left: 1rem;
+  font-size: clamp(1.5rem, 3.2vw, 3rem);
+  color: rgba(248,249,250,0.82); font-weight: 300;
+  margin-top: 0.3rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
 }
-.loc-l3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(1.6rem, 3.2vw, 3rem);
-  color: rgba(233,196,106,0.58); font-weight: 300;
-  margin-left: 2.2rem;
-}
+.loc-l2 em { font-style: italic; color: var(--gold-light); }
 
 .loc-divider {
   display: flex; align-items: center; gap: 14px;
@@ -2126,20 +2144,23 @@ body {
 }
 
 #loc-address {
-  display: flex; flex-direction: column; gap: 0.24rem;
+  display: flex; flex-direction: column; gap: 0.28rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.95);
 }
 .loc-venue-name {
   font-family: 'Cinzel', serif;
-  font-size: clamp(0.72rem, 1.1vw, 0.92rem);
-  letter-spacing: 0.24em;
-  color: rgba(233,196,106,0.70);
+  font-size: clamp(0.78rem, 1.2vw, 1rem);
+  letter-spacing: 0.26em;
+  color: rgba(233,196,106,0.85);
   text-transform: uppercase;
 }
+.loc-venue-name::before { content: "✦ "; color: rgba(233,196,106,0.55); }
+.loc-venue-name::after  { content: " ✦"; color: rgba(233,196,106,0.55); }
 .loc-venue-addr {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(0.82rem, 1.2vw, 1rem);
-  color: rgba(205,180,219,0.46);
+  font-size: clamp(0.88rem, 1.3vw, 1.05rem);
+  color: rgba(248,249,250,0.66);
   letter-spacing: 0.04em;
 }
 
@@ -2147,11 +2168,12 @@ body {
 #location-cta {
   position: relative;
   display: inline-flex; align-items: center;
-  background: transparent;
-  border: 1px solid rgba(233,196,106,0.38);
+  background: rgba(4,12,8,0.35);
+  border: 1px solid rgba(233,196,106,0.45);
   color: var(--gold);
   cursor: none; padding: 0; overflow: hidden;
   width: fit-content; margin-top: 0.3rem;
+  pointer-events: auto;     /* el ÚNICO elemento clickeable de la escena */
   transition: border-color 0.4s, box-shadow 0.4s;
 }
 #location-cta:hover {
@@ -2194,27 +2216,10 @@ body {
   letter-spacing: 0.06em; margin-top: -0.5rem;
 }
 
-/* Responsive Scene 7 */
+/* Responsive Scene — Cómo Llegar */
 @media (max-width: 768px) {
-  #scene-location {
-    justify-content: center; align-items: flex-start;
-    padding: 7vh 0 0 0;
-  }
-  #location-content {
-    max-width: 92vw; align-items: center;
-    text-align: center; gap: 1.1rem;
-    padding: 0 1.6rem;
-    background: none;
-    backdrop-filter: none;
-    border: none;
-  }
-  .loc-eyebrow { text-shadow: 0 0 18px rgba(0,0,0,0.9); }
-  .loc-l1 { font-size: 2.2rem; }
-  .loc-l2 { font-size: 1.75rem; margin-left: 0; }
-  .loc-l3 { font-size: 1.45rem; margin-left: 0; }
-  #loc-headline { align-items: center; }
-  #loc-address { text-shadow: 0 1px 10px rgba(0,0,0,0.95); }
-  .loc-hint { display: none; }
+  #location-content { padding: 6vh 1.4rem 11vh; }
+  .loc-l1 { font-size: 2.3rem; }
+  .loc-l2 { font-size: 1.5rem; }
   .loc-btn-inner { font-size: 0.55rem; padding: 0.8rem 1.6rem; }
-  #firefly-img { width: 150px; }
 }
