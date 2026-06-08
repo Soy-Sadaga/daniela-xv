@@ -253,55 +253,75 @@ body {
 ══════════════════════════════ */
 #scene-reveal {
   z-index: 10;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: clamp(0.7rem, 2.2vh, 1.5rem);
-  padding: 4vh 1rem;
+  display: flex; align-items: center; justify-content: center;
   background-color: #05130d;
   overflow: hidden;
 }
 
-/* Saludo arriba del marco */
-.reveal-eyebrow {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.5rem, 1.5vw, 0.72rem);
-  letter-spacing: 0.42em; text-transform: uppercase;
-  color: rgba(233,196,106,0.78); text-align: center;
-  max-width: 90vw; line-height: 1.9;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-/* Tarjeta: el marco ornamentado, completo y nítido, ajustado al viewport
-   (mismo aspecto que la imagen → sin recorte ni estirado). */
+/* Tarjeta: el marco ornamentado llena la ALTURA completa (arriba y abajo),
+   manteniendo su proporción. Móvil: el ancho extra se recorta (cubre todo).
+   PC: queda nítido con bordes oscuros a los lados. */
 #daniela-card {
-  position: relative; flex: 0 0 auto;
+  position: relative;
+  height: 100%;
   aspect-ratio: 1023 / 1537;
-  width: min(82vw, 60vh * 0.6656);
+  width: auto;
+  max-width: none;
+}
+#reveal-frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; user-select: none;
+}
+/* Degradados sutiles para legibilidad del texto (arriba y abajo) */
+#daniela-card::before, #daniela-card::after {
+  content: ""; position: absolute; left: 0; right: 0; z-index: 2;
+  pointer-events: none;
+}
+#daniela-card::before {
+  top: 0; height: 22%;
+  background: linear-gradient(to bottom, rgba(4,11,7,0.7) 0%, transparent 100%);
+}
+#daniela-card::after {
+  bottom: 0; height: 34%;
+  background: linear-gradient(to top, rgba(4,11,7,0.85) 0%, rgba(4,11,7,0.45) 40%, transparent 100%);
 }
 
-/* Nombre + XV Años debajo del marco */
+/* Saludo ENCIMA de la imagen, sobre los sauces (arriba) */
+.reveal-eyebrow {
+  position: absolute; top: 4%; left: 50%; transform: translateX(-50%);
+  z-index: 3; width: 86%; text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.48rem, 1.4vw, 0.68rem);
+  letter-spacing: 0.34em; text-transform: uppercase; line-height: 1.9;
+  color: rgba(233,196,106,0.85);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.8);
+}
+
+/* Nombre + XV Años ENCIMA de la imagen, sobre el estanque (abajo) */
 .reveal-name {
+  position: absolute; bottom: 9.5%; left: 50%; transform: translateX(-50%);
+  z-index: 3; width: 96%; text-align: center;
   display: flex; flex-direction: column; align-items: center;
-  text-align: center;
 }
 #xv-name {
   font-family: 'Cinzel Decorative', serif; font-weight: 900;
-  font-size: clamp(2.4rem, 8vw, 4.2rem); line-height: 1;
+  font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1;
   background: linear-gradient(135deg,
     var(--gold-light) 0%, var(--gold) 30%,
     var(--rose-light) 60%, var(--gold-light) 85%, var(--gold) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; background-size: 200% 200%;
-  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.85)) drop-shadow(0 0 36px rgba(233,196,106,0.3));
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.95)) drop-shadow(0 0 30px rgba(233,196,106,0.3));
   animation: shimmer 6s linear infinite;
 }
 @keyframes shimmer { 0%{background-position:0% 50%;} 100%{background-position:200% 50%;} }
 #xv-years {
   font-family: 'Cinzel', serif; font-weight: 400;
-  font-size: clamp(0.85rem, 2.4vw, 1.5rem);
-  letter-spacing: 0.7em; color: var(--rose-light);
-  margin-top: 0.4rem;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  font-size: clamp(0.8rem, 2.2vw, 1.4rem);
+  letter-spacing: 0.6em; color: var(--rose-light);
+  margin-top: 0.3rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.98), 0 0 6px rgba(0,0,0,0.85);
 }
 #reveal-frame {
   position: absolute; inset: 0;
