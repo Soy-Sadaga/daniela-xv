@@ -255,6 +255,8 @@ tl1
                           { scale:1, opacity:1, ease:'back.out(1.8)' }, 0.58)
   .fromTo('#crown-glyph', { y:-50, opacity:0 },
                           { y:0, opacity:1, ease:'back.out(2)' }, 0.6)
+  .fromTo('#name-portrait',{ scale:0.85, opacity:0 },
+                          { scale:1, opacity:1, ease:'back.out(1.4)' }, 0.55)
   .fromTo('#xv-years',    { y:25, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.65)
   .fromTo('#name-tagline',{ y:18, opacity:0 }, { y:0, opacity:1, ease:'power2.out' }, 0.7)
   .add(()=> document.getElementById('chapter-label').textContent='Capítulo I — El Nombre', 0.5);
