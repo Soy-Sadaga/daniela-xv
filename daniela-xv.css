@@ -259,6 +259,16 @@ body {
   overflow: hidden;
 }
 
+/* Capa de fondo difuminada (cubre toda la pantalla, rellena los lados en PC) */
+#reveal-bg-blur {
+  position: absolute; inset: 0; z-index: 0;
+  background-color: #05130d;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  filter: blur(40px) brightness(0.5) saturate(1.05);
+  transform: scale(1.18);
+  pointer-events: none;
+}
+
 /* Tarjeta del marco.
    VERTICAL (celular): efecto "cover" (min-width/height:100% + aspect-ratio) →
    cubre toda la pantalla, recorta el cielo/agua extendidos.
@@ -269,6 +279,7 @@ body {
   aspect-ratio: 1023 / 2227;
   min-width: 100%; min-height: 100%;
   width: auto; height: auto;
+  z-index: 1;
 }
 @media (orientation: landscape) {
   #daniela-card {
