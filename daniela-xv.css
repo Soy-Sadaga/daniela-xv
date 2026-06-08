@@ -257,17 +257,17 @@ body {
   overflow: hidden;
 }
 
-/* Fondo: escenario del pantano encantado */
+/* Fondo: escenario del pantano encantado.
+   PC: imagen completa centrada (contain) sobre fondo oscuro → nítida, sin
+   estirar. Móvil: cover → llena de borde a borde (se reduce, no pixela). */
 #reveal-bg {
   position: absolute; inset: 0; z-index: 0;
   background-color: #05130d;
-  background-position: center top; background-size: cover; background-repeat: no-repeat;
+  background-position: center; background-size: contain; background-repeat: no-repeat;
   pointer-events: none;
 }
-/* En móvil mostramos la imagen completa (sin zoom/recorte): se ve más amplia y
-   nítida; los bordes sobrantes se funden con el fondo oscuro. */
 @media (max-width: 768px) {
-  #reveal-bg { background-size: contain; background-position: center; }
+  #reveal-bg { background-size: cover; }
 }
 #reveal-overlay {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -279,7 +279,7 @@ body {
 #name-wrap {
   text-align: center; position: relative; z-index: 2;
   width: min(92vw, 560px); margin: 0 auto; height: 100%;
-  padding: 5vh 1.2rem 6vh;
+  padding: 5vh 1.2rem 10vh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: space-between;
 }
