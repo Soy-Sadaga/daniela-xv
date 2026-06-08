@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=65">
+  <link rel="stylesheet" href="daniela-xv.css?v=67">
 </head>
 <body>
 
@@ -440,20 +440,24 @@
   <!-- ▓ SCENE 2 — Name Reveal ▓ -->
   <div class="scene" id="scene-reveal">
 
-    <!-- Marco ornamentado a pantalla completa (llena alto). La foto real se
-         encaja en el interior; el texto va ENCIMA de la imagen. -->
+    <!-- Marco ornamentado que CUBRE toda la pantalla (ancho y alto). La foto
+         real se encaja en el interior del marco. -->
     <div id="daniela-card">
       <img id="reveal-frame" src="fondo_daniela.webp?v=4" alt="" draggable="false">
       <!-- Foto real: guarda "daniela_foto.webp" en la carpeta y aparece sola -->
       <img id="name-photo" src="daniela_foto.webp" alt="Daniela" draggable="false"
            onerror="this.style.display='none'">
+    </div>
 
-      <div class="reveal-eyebrow">✦ &nbsp; Con todo el amor del mundo, te invitamos a celebrar &nbsp; ✦</div>
+    <!-- Degradados + texto, fijos a los bordes de la pantalla (nunca se cortan) -->
+    <div class="reveal-scrim-top"></div>
+    <div class="reveal-scrim-bottom"></div>
 
-      <div class="reveal-name">
-        <h1 id="xv-name">Daniela</h1>
-        <div id="xv-years">XV &nbsp; Años</div>
-      </div>
+    <div class="reveal-eyebrow">✦ &nbsp; Con todo el amor del mundo, te invitamos a celebrar &nbsp; ✦</div>
+
+    <div class="reveal-name">
+      <h1 id="xv-name">Daniela</h1>
+      <div id="xv-years">XV &nbsp; Años</div>
     </div>
 
   </div><!-- /scene-reveal -->
