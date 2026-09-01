@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="daniela-xv.css?v=72">
+  <link rel="stylesheet" href="daniela-xv.css?v=73">
 </head>
 <body>
 
@@ -590,6 +590,24 @@
         <div class="cd-unit"><div class="cd-ring"><svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg><span class="cd-num" id="cd-s">00</span></div><span class="cd-lbl">Segundos</span></div>
       </div>
 
+      <!-- Separador + Hora de Llegada (para que el invitado no tenga que
+           calcular nada: la hora exacta a la que debe llegar). -->
+      <div class="cd-divider"><span class="cd-div-line"></span><span class="cd-div-gem">✦</span><span class="cd-div-line"></span></div>
+      <div class="cd-intro">Hora de Llegada</div>
+
+      <div id="cd-arrival">
+        <div class="cd-ring">
+          <svg class="cd-ring-orn" viewBox="0 0 140 140" aria-hidden="true"><use href="#cd-vine"/></svg>
+          <div class="cd-arrival-content">
+            <svg class="cd-arrival-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.4"/>
+              <path d="M12 7.4v4.9l3.3 1.9" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="cd-arrival-time" id="cd-arrival-time">6:00 PM</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div><!-- /scene-event -->
 
@@ -963,6 +981,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
-<script src="daniela-xv.js?v=30" defer></script>
+<script src="daniela-xv.js?v=31" defer></script>
 </body>
 </html>

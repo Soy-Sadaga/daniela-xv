@@ -901,6 +901,22 @@ function spawnWisp(){}
       if(yearEl)  yearEl.textContent  = parts[0];
     }
 
+    // Hora de Llegada — misma hora de la fiesta (data.horaFiesta, formato
+    // 24h "HH:MM"), convertida a 12h con AM/PM para que el invitado no
+    // tenga que hacer la cuenta él mismo. En punto (minutos "00") se
+    // muestra sin minutos ("6 PM") para que quepa cómodo en el círculo;
+    // si no es en punto, se muestran los minutos ("6:30 PM").
+    {
+      const arrivalEl = document.getElementById('cd-arrival-time');
+      if(arrivalEl) {
+        const [hh, mm] = (data.horaFiesta || '18:00').split(':');
+        let h = parseInt(hh, 10);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if(h === 0) h = 12;
+        arrivalEl.textContent = (mm && mm !== '00') ? (h + ':' + mm + ' ' + ampm) : (h + ' ' + ampm);
+      }
+    }
+
     // Sincronizar nuevos elementos de RSVP
     const rsvpDeadline = document.querySelector('.rsvp-deadline');
     const rsvpPoemName = document.querySelector('#rsvp-poem em');

@@ -603,6 +603,34 @@ body {
   color: rgba(233,196,106,0.65);
 }
 
+/* Hora de Llegada — mismo anillo/enredadera que los círculos de la cuenta
+   regresiva, pero con un reloj + la hora en vez de un número, para que el
+   invitado no tenga que calcular nada. */
+#cd-arrival { display: flex; justify-content: center; }
+/* Un poco más ancho que los círculos de la cuenta regresiva: lleva más
+   contenido (ícono + texto) y "6:30 PM" es más largo que "00". */
+#cd-arrival .cd-ring {
+  width:  clamp(66px, min(12.5vh, 19.5vw), 122px);
+  height: clamp(66px, min(12.5vh, 19.5vw), 122px);
+}
+.cd-arrival-content {
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(0.18rem, 0.6vh, 0.32rem);
+}
+.cd-arrival-ic {
+  width: clamp(15px, 2.4vh, 21px); height: clamp(15px, 2.4vh, 21px);
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 8px rgba(233,196,106,0.4));
+}
+.cd-arrival-time {
+  font-family: 'Cinzel', serif; font-weight: 600;
+  font-size: clamp(0.8rem, min(2.2vh, 3.6vw), 1.3rem);
+  color: var(--gold-light); line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-shadow: 0 0 16px rgba(233,196,106,0.5);
+}
+
 /* (dress-code movido a su propia escena — ver SCENE 5) */
 .swatches {
   display: flex; gap: 1.2rem; justify-content: center;
