@@ -350,8 +350,8 @@ body {
 #gallery { position: absolute; inset: 0; z-index: 1; }
 .gal-slide {
   position: absolute; inset: 0;
-  background-size: cover; background-position: center; background-repeat: no-repeat;
-  /* Placeholder por defecto (cuando aún no hay foto): degradado verde */
+  /* Placeholder por defecto (cuando aún no hay foto): degradado verde,
+     visible detrás de las capas de la foto si alguna no carga. */
   background-color: #0b2118;
   background-image:
     radial-gradient(ellipse 90% 70% at 50% 40%, rgba(45,106,79,0.45) 0%, transparent 70%),
@@ -360,6 +360,24 @@ body {
   transition: opacity 1.1s ease;
 }
 .gal-slide.is-active { opacity: 1; }
+
+/* Foto de la diapositiva en DOS capas, para que nunca se vea recortada
+   ni con la cara/cabeza cortada (las fotos son verticales y la pantalla
+   suele ser horizontal, así que un "cover" simple recorta demasiado):
+   1) Fondo difuminado y oscurecido de la MISMA foto, ampliado, que rellena
+      toda la pantalla sin dejar bordes vacíos.
+   2) La foto COMPLETA encima, sin recortar (contain), centrada. */
+.gal-slide-blur {
+  position: absolute; inset: -4%;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  filter: blur(36px) saturate(1.15) brightness(0.5);
+  transform: scale(1.12);
+}
+.gal-slide-photo {
+  position: absolute; inset: 0;
+  background-size: contain; background-position: center; background-repeat: no-repeat;
+  filter: drop-shadow(0 10px 40px rgba(0,0,0,0.55));
+}
 
 /* Contenido del placeholder (icono + texto). Bórralo al poner foto real. */
 .gal-ph {
