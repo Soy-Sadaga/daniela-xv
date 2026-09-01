@@ -857,19 +857,13 @@ function spawnWisp(){}
   // Default data
   const defaultData = {
     nombre: 'Daniela',
-    tagline: 'Una princesa que convirtió su sueño en realidad',
     quote: 'Han pasado quince años desde que llegué a este mundo a llenarlo de magia.\nHoy quiero compartir este sueño contigo.',
     fechaEvento: '2026-09-19',
-    horaFiesta: '19:30',
-    horaMisa: '16:00',
-    lugarMisa: 'Catedral de Nuestra Señora del Rosario',
-    lugarFiesta: 'Salón Palacio Real',
-    direccionFiesta: 'Av. de los Sueños 1500',
-    foto1Label: 'Mis inicios',
-    foto2Label: 'Mis sueños',
-    foto3Label: 'Mi historia',
-    fechaLimiteRsvp: '5 de Septiembre',
-    nombreFamilia: 'la familia García'
+    horaFiesta: '18:00',
+    lugarFiesta: 'Finca El Limoncito Tres Esquinas',
+    direccionFiesta: 'La dirección exacta te espera en el mapa',
+    fechaLimiteRsvp: '14 de Septiembre',
+    nombreFamilia: 'la familia Córdoba'
   };
 
   // Load data from localStorage or use defaults
@@ -888,24 +882,11 @@ function spawnWisp(){}
     const xvName = document.getElementById('xv-name');
     if(xvName) xvName.textContent = data.nombre;
 
-    // Tagline
-    const nameTagline = document.getElementById('name-tagline');
-    if(nameTagline) nameTagline.textContent = data.tagline;
-
     // Quote
     const gardenQuote = document.querySelector('#garden-quote blockquote');
     const quoteSig = document.querySelector('.quote-sig');
     if(gardenQuote) gardenQuote.textContent = data.quote;
     if(quoteSig) quoteSig.textContent = '— ' + data.nombre + ' —';
-
-    // Event details
-    const detailTexts = document.querySelectorAll('.detail-text');
-    if(detailTexts[0]) {
-      detailTexts[0].innerHTML = `Misa de Acción de Gracias — ${data.horaMisa}\n<span class="detail-sub">${data.lugarMisa}</span>`;
-    }
-    if(detailTexts[1]) {
-      detailTexts[1].innerHTML = `Gran Fiesta de Quinceañera — ${data.horaFiesta}\n<span class="detail-sub">${data.lugarFiesta} &nbsp;·&nbsp; ${data.direccionFiesta}</span>`;
-    }
 
     // Fecha del evento — día / mes / año por separado (cuenta regresiva).
     // Se parsea manualmente (sin new Date) para evitar el desfase de zona
@@ -920,38 +901,6 @@ function spawnWisp(){}
       if(monthEl) monthEl.textContent = meses[parseInt(parts[1], 10) - 1] || '';
       if(yearEl)  yearEl.textContent  = parts[0];
     }
-
-    // Photo labels + images
-    const pf1Label = document.querySelector('#pf1 .frame-label');
-    const pf2Label = document.querySelector('#pf2 .frame-label');
-    const pf3Label = document.querySelector('#pf3 .frame-label');
-    if(pf1Label) pf1Label.textContent = data.foto1Label;
-    if(pf2Label) pf2Label.textContent = data.foto2Label;
-    if(pf3Label) pf3Label.textContent = data.foto3Label;
-
-    // Photo images from relative paths
-    [1,2,3].forEach(n => {
-      const area = document.querySelector(`#pf${n} .frame-photo-area`);
-      if(!area) return;
-      const ruta = data[`foto${n}Ruta`];
-      if(ruta && ruta.trim() !== '') {
-        area.style.backgroundImage = `url(${ruta})`;
-        area.style.backgroundSize = 'cover';
-        area.style.backgroundPosition = 'center';
-        area.style.color = 'transparent';
-        area.textContent = '';
-      } else {
-        area.style.backgroundImage = '';
-        area.style.color = '';
-        area.textContent = n === 3 ? '♛' : '✦';
-      }
-    });
-
-    // RSVP section
-    const rsvpSub = document.querySelector('.rsvp-sub');
-    const rsvpFoot = document.querySelector('.rsvp-foot span');
-    if(rsvpSub) rsvpSub.textContent = 'Confirma tu asistencia antes del ' + data.fechaLimiteRsvp;
-    if(rsvpFoot) rsvpFoot.textContent = 'Con amor, ' + data.nombreFamilia;
 
     // Sincronizar nuevos elementos de RSVP
     const rsvpDeadline = document.querySelector('.rsvp-deadline');
@@ -970,9 +919,8 @@ function spawnWisp(){}
     if(locName) locName.textContent = data.lugarFiesta   || 'Lugar del Evento';
     if(locAddr) locAddr.textContent = data.direccionFiesta || 'La dirección exacta te espera en el mapa';
     // Enlace de Google Maps del lugar de la fiesta.
-    // Lo usan el botón "Cómo llegar" Y la luciérnaga. (Cambia este enlace
-    // cuando tengas la ubicación definitiva del salón.)
-    window._gmapsUrl = 'https://maps.app.goo.gl/KUujauNwB3ikRurs5';
+    // Lo usan el botón "Cómo llegar" Y la luciérnaga.
+    window._gmapsUrl = 'https://www.google.com/maps/place/7%C2%B001\'12.1%22N+73%C2%B005\'44.9%22W/@7.0200372,-73.0983848,17z/data=!3m1!4b1!4m4!3m3!8m2!3d7.0200372!4d-73.0958099?hl=es&entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D';
 
     // WhatsApp — botón "Confirmar Asistencia": número + mensaje predefinido.
     const waNumero  = '573013246362'; // 57 = código de Colombia
