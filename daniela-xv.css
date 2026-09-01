@@ -267,11 +267,18 @@ body {
   pointer-events: none;
 }
 
-/* Marco transparente centrado (más pequeño que la pantalla) con la foto dentro */
+/* Marco transparente centrado (más pequeño que la pantalla) con la foto dentro.
+   En PC, donde la pantalla es ancha, "82vw" nunca manda (el marco es angosto
+   y vertical) así que el tamaño real lo pone el límite de alto: antes era
+   72vh, casi toda la pantalla, y por eso el marco quedaba pegado al nombre
+   de abajo. Con 64vh queda un poco más grande que el primer ajuste (58vh)
+   pero conservando aire arriba (saludo) y abajo (nombre) en pantallas
+   anchas típicas. En móvil manda "82vw" igual que antes, así que no
+   cambia nada ahí. */
 #daniela-frame {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  position: absolute; top: 48%; left: 50%; transform: translate(-50%,-50%);
   z-index: 2;
-  width: min(82vw, 72vh * 0.6667);
+  width: min(82vw, 64vh * 0.6667);
   aspect-ratio: 1024 / 1536;
   filter: drop-shadow(0 18px 50px rgba(0,0,0,0.55));
 }
@@ -1739,9 +1746,11 @@ body {
 
 /* ─── Music Player Button ─── */
 #music-btn {
+  /* En una esquina (no centrado abajo) para no taparle el nombre/firma
+     a ninguna escena — antes quedaba justo sobre "Daniela", "XV Años", etc. */
   position: fixed;
-  bottom: 2rem; left: 50%;
-  transform: translateX(-50%);
+  bottom: 1.5rem; right: 1.3rem; left: auto;
+  transform: none;
   width: 46px; height: 46px;
   border: 1px solid rgba(233,196,106,0.35);
   border-radius: 50%;
@@ -1777,11 +1786,12 @@ body {
   0%,100% { transform: scaleY(1);    opacity: 0.9; }
   50%      { transform: scaleY(0.3); opacity: 0.5; }
 }
-/* Tooltip label */
+/* Tooltip label — anclado a la derecha del botón (ahora en la esquina)
+   para que el texto no se salga de la pantalla por el borde derecho. */
 #music-btn::after {
   content: 'A Thousand Years';
-  position: absolute; bottom: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%);
+  position: absolute; bottom: calc(100% + 8px); right: 0; left: auto;
+  transform: none;
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.58rem; letter-spacing: 0.12em;
   color: rgba(233,196,106,0.7);
@@ -1880,6 +1890,9 @@ body {
      más grande, con menos espaciado entre letras y más opacas para que
      se lea de un vistazo sobre el fondo con follaje. */
   .reveal-eyebrow {
+    /* Más cerca del marco (antes quedaba un salto muy grande de aire
+       entre el texto y la foto) y más abajo para acompañarla. */
+    top: 12%;
     font-size: clamp(0.62rem, 2.6vw, 0.74rem);
     letter-spacing: 0.2em;
     line-height: 1.7;

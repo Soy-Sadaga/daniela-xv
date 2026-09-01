@@ -853,8 +853,13 @@ function spawnWisp(){}
 /* ═══════════════════════════════════════════
    DATA SYNC — READ FROM LOCALSTORAGE
 ═══════════════════════════════════════════ */
-(function syncDataFromStorage(){
-  // Default data
+(function syncData(){
+  // Datos del evento — únicos y directos desde el código. (Antes esto se
+  // podía sobreescribir con un valor guardado en localStorage del
+  // navegador, resto de un panel de edición que ya no existe; eso hacía
+  // que un navegador con un valor viejo guardado mostrara datos
+  // desactualizados aunque el código ya tuviera los correctos. Se quitó
+  // esa capa: lo que está aquí es siempre lo que se ve.)
   const defaultData = {
     nombre: 'Daniela',
     quote: 'Han pasado quince años desde que llegué a este mundo a llenarlo de magia.\nHoy quiero compartir este sueño contigo.',
@@ -865,12 +870,6 @@ function spawnWisp(){}
     fechaLimiteRsvp: '14 de Septiembre',
     nombreFamilia: 'la familia Córdoba'
   };
-
-  // Load data from localStorage or use defaults
-  function loadData() {
-    const stored = localStorage.getItem('quinceañera-data');
-    return stored ? JSON.parse(stored) : defaultData;
-  }
 
   // Update all text elements on page
   function updatePageData(data) {
@@ -936,16 +935,7 @@ function spawnWisp(){}
   }
 
   // Initialize on page load
-  const currentData = loadData();
-  updatePageData(currentData);
-
-  // Listen for changes from other tabs/windows
-  window.addEventListener('storage', (e) => {
-    if(e.key === 'quinceañera-data' && e.newValue) {
-      const newData = JSON.parse(e.newValue);
-      updatePageData(newData);
-    }
-  });
+  updatePageData(defaultData);
 })();
 
 
